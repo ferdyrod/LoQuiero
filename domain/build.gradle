@@ -1,0 +1,13 @@
+apply plugin: 'java-library'
+apply plugin: 'kotlin'
+
+dependencies {
+    implementation Libs.kotlinStd
+    implementation Libs.kotlinCoroutines
+    implementation Libs.kotlinCoroutinesAndroid
+
+    testImplementation TestLibs.kotlinTest
+    testImplementation TestLibs.junit
+    testImplementation TestLibs.mockito
+    testImplementation TestLibs.kluent
+}
