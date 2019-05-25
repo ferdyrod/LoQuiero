@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
 
 android {
@@ -19,6 +20,9 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    dataBinding {
+        enabled = true
+    }
 }
 
 
@@ -26,11 +30,35 @@ dependencies {
     implementation project(Modules.data)
     implementation project(Modules.domain)
 
+    //Compile time dependencies
+    implementation 'androidx.appcompat:appcompat:1.0.2'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    kapt Libs.lifecycleCompiler
+
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation Libs.kotlinStd
     implementation Libs.appcompat
+    implementation Libs.lifecycle
     implementation Libs.corektx
+
+    implementation Libs.cardview
+    implementation Libs.recyclerview
+    implementation Libs.androidAnnotations
+    implementation Libs.glide
+    implementation Libs.koinCore
+    implementation Libs.koinAndroid
+    implementation Libs.koinViewModel
+    implementation Libs.retrofit
+    implementation Libs.retrofitMoshi
+    implementation Libs.okhttp
+    implementation Libs.okhttpInterceptor
+
+
     testImplementation TestLibs.junit
     androidTestImplementation TestLibs.runner
     androidTestImplementation TestLibs.espresso
+}
+
+kapt {
+    generateStubs = true
 }
