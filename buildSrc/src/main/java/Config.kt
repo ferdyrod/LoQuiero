@@ -7,7 +7,7 @@ object Versions {
     val materialComponentVersion = "1.1.0-alpha06"
     val constraintLayoutVersion = "1.1.2"
     val lifecycleVersion = "2.0.0"
-    val kotlinCoroutinesVersion = "1.0.0"
+    val kotlinCoroutinesVersion = "1.2.1"
     val supportVersion = "1.0.0"
 
     // 3rd Party Libraries
@@ -21,7 +21,7 @@ object Versions {
     //Unit Testing
     val robolectricVersion = "3.8"
     val junitVersion = "4.12"
-    val mockitoVersion = "1.6.0"
+    val mockitoVersion = "2.1.0"
     val kluentVersion = "1.40"
 
     //Acceptance Testing
@@ -82,7 +82,7 @@ object Libs {
 
 object TestLibs {
     val kotlinTest = "org.jetbrains.kotlin:kotlin-test-junit:${Versions.kotlin_stdlibVersion}"
-    val mockito = "com.nhaarman:mockito-kotlin:${Versions.mockitoVersion}"
+    val mockito = "com.nhaarman.mockitokotlin2:mockito-kotlin:${Versions.mockitoVersion}"
     val robolectric ="org.robolectric:robolectric:${Versions.robolectricVersion}"
     val kluent = "org.amshove.kluent:kluent:${Versions.kluentVersion}"
     val junit = "junit:junit:${Versions.junitVersion}"
