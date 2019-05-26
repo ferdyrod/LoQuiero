@@ -10,4 +10,5 @@ dependencies {
     testImplementation TestLibs.junit
     testImplementation TestLibs.mockito
     testImplementation TestLibs.kluent
+    testImplementation TestLibs.robolectric
 }
