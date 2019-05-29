@@ -5,6 +5,7 @@ dependencies {
     implementation Libs.kotlinStd
     implementation Libs.kotlinCoroutines
     implementation Libs.kotlinCoroutinesAndroid
+    implementation Libs.koinCore
 
     testImplementation TestLibs.kotlinTest
     testImplementation TestLibs.junit

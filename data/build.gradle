@@ -1,4 +1,6 @@
 apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
 
 android {
     compileSdkVersion Android.compileSdkVersion
@@ -31,7 +33,7 @@ dependencies {
     implementation Libs.retrofit
     implementation Libs.moshi
     implementation Libs.androidAnnotations
-
+    implementation Libs.koinCore
 
     testImplementation TestLibs.kotlinTest
     testImplementation TestLibs.junit

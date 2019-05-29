@@ -5,24 +5,24 @@ object Versions {
 
     val androidXVersion = "1.0.2"
     val materialComponentVersion = "1.1.0-alpha06"
-    val constraintLayoutVersion = "1.1.2"
+    val constraintLayoutVersion = "1.1.3"
     val lifecycleVersion = "2.0.0"
     val kotlinCoroutinesVersion = "1.2.1"
     val supportVersion = "1.0.0"
 
     // 3rd Party Libraries
-    val glideVersion = "4.8.0"
-    val retrofitVersion = "2.4.0"
-    val okhttpVersion = "3.11.0"
-    val moshiVersion = "1.6.0"
-    val koinVersion ="2.0.0-GA6"
+    val glideVersion = "4.9.0"
+    val retrofitVersion = "2.5.0"
+    val okhttpVersion = "3.14.2"
+    val moshiVersion = "1.8.0"
+    val koinVersion ="2.0.0"
 
     //Testing
     //Unit Testing
     val robolectricVersion = "3.8"
     val junitVersion = "4.12"
     val mockitoVersion = "2.1.0"
-    val kluentVersion = "1.40"
+    val kluentVersion = "1.49"
 
     //Acceptance Testing
     val runnerVersion = "1.1.1"
@@ -84,7 +84,7 @@ object TestLibs {
     val kotlinTest = "org.jetbrains.kotlin:kotlin-test-junit:${Versions.kotlin_stdlibVersion}"
     val mockito = "com.nhaarman.mockitokotlin2:mockito-kotlin:${Versions.mockitoVersion}"
     val robolectric ="org.robolectric:robolectric:${Versions.robolectricVersion}"
-    val kluent = "org.amshove.kluent:kluent:${Versions.kluentVersion}"
+    val kluent = "org.amshove.kluent:kluent-android:${Versions.kluentVersion}"
     val junit = "junit:junit:${Versions.junitVersion}"
     val espresso = "androidx.test.espresso:espresso-core:${Versions.espressoVersion}"
     val runner = "androidx.test:runner:${Versions.runnerVersion}"
