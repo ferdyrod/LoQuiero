@@ -1,6 +1,8 @@
 package com.ferdyrodriguez.loquiero.di
 
+import com.ferdyrodriguez.data.remote.ApiService
 import com.ferdyrodriguez.domain.MainRepository
+import com.ferdyrodriguez.domain.fp.map
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -13,20 +15,21 @@ val networkModule: Module = module {
 
     single {
         Retrofit.Builder()
-            .baseUrl(getProperty("baseUrl") as String)
+            .baseUrl("http://192.168.1.38:8000/api/")
             .client(get())
             .addConverterFactory(MoshiConverterFactory.create())
             .build()
     }
 
-    single {(mainRepository: MainRepository) ->
+    single {
+        val mainRepository: MainRepository by inject()
         val headerLogInterceptor = HttpLoggingInterceptor(HttpLoggingInterceptor.Logger.DEFAULT)
         val bodyLogInterceptor = HttpLoggingInterceptor(HttpLoggingInterceptor.Logger.DEFAULT)
         val headersInterceptor = Interceptor {
-            val authToken = mainRepository.getAuthToken().either({},  { token -> token })
+            var authToken = ""
+            mainRepository.getAuthToken().map { token -> authToken = token }
             val requestBuilder = it.request().newBuilder()
-            if (authToken is String)
-                requestBuilder.addHeader("Bearer", authToken)
+            requestBuilder.addHeader("Bearer", authToken)
             requestBuilder.build()
             it.proceed(requestBuilder.build())
         }
@@ -40,6 +43,8 @@ val networkModule: Module = module {
         client.addInterceptor(headerLogInterceptor)
         client.addInterceptor(bodyLogInterceptor)
 
-        client.build()
+        client.build() as OkHttpClient
     }
+
+    factory { ApiService(get()) }
 }
