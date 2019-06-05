@@ -10,14 +10,11 @@ import com.ferdyrodriguez.domain.fp.Either
 import com.ferdyrodriguez.domain.fp.Either.Left
 import com.ferdyrodriguez.domain.fp.Either.Right
 import com.ferdyrodriguez.domain.models.RegisterUser
-import org.koin.core.KoinComponent
-import org.koin.core.inject
 import retrofit2.Call
 
-class RemoteDataSourceImpl : RemoteDataSource, KoinComponent {
+class RemoteDataSourceImpl constructor(private val service: ApiService,
+                                       private val mapper: ModelMapper) : RemoteDataSource {
 
-    private val service: ApiService by inject()
-    private val mapper: ModelMapper by inject()
 
     override fun registerUser(email: String, password: String): Either<Failure, RegisterUser> {
         val call = service.registerUser(RegisterUserDto(email, password))

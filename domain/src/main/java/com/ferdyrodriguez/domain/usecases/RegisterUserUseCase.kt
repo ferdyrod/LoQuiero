@@ -5,13 +5,9 @@ import com.ferdyrodriguez.domain.exceptions.Failure
 import com.ferdyrodriguez.domain.fp.Either
 import com.ferdyrodriguez.domain.models.RegisterUser
 import com.ferdyrodriguez.domain.usecases.base.UseCase
-import org.koin.core.KoinComponent
-import org.koin.core.inject
 
-class RegisterUserUseCase :
-    UseCase<RegisterUser, RegisterUserUseCase.Params>(), KoinComponent {
-
-    private val repository: MainRepository by inject()
+class RegisterUserUseCase constructor(private val repository: MainRepository):
+    UseCase<RegisterUser, RegisterUserUseCase.Params>() {
 
     override suspend fun run(params: Params): Either<Failure, RegisterUser> =
         repository.registerUser(params.email, params.password)

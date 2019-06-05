@@ -88,4 +88,5 @@ object TestLibs {
     val junit = "junit:junit:${Versions.junitVersion}"
     val espresso = "androidx.test.espresso:espresso-core:${Versions.espressoVersion}"
     val runner = "androidx.test:runner:${Versions.runnerVersion}"
+    val koinTest = "org.koin:koin-test:${Versions.koinVersion}"
 }

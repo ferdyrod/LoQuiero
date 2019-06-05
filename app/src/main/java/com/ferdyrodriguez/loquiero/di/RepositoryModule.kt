@@ -11,7 +11,7 @@ import org.koin.dsl.module
 
 val repositoryModule: Module = module {
     single { ModelMapper() }
-    single { RemoteDataSourceImpl() as RemoteDataSource}
-    single { MainRepositoryImpl() as MainRepository }
-    factory { RegisterUserUseCase() }
+    single { RemoteDataSourceImpl(get(), get()) as RemoteDataSource}
+    single { MainRepositoryImpl(get()) as MainRepository }
+    factory { RegisterUserUseCase(get()) }
 }

@@ -5,11 +5,8 @@ import com.ferdyrodriguez.domain.MainRepository
 import com.ferdyrodriguez.domain.exceptions.Failure
 import com.ferdyrodriguez.domain.fp.Either
 import com.ferdyrodriguez.domain.models.RegisterUser
-import org.koin.core.KoinComponent
-import org.koin.core.inject
 
-class MainRepositoryImpl : MainRepository, KoinComponent {
-    private val remoteDataSource: RemoteDataSource by inject()
+class MainRepositoryImpl constructor(private val remoteDataSource: RemoteDataSource): MainRepository {
 
     override fun getAuthToken(): Either<Failure, String> {
         return Either.Right("Token Here")
