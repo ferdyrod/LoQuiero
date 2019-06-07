@@ -5,7 +5,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.ferdyrodriguez.domain.exceptions.Failure
 
-class BaseViewModel: ViewModel() {
+
+abstract class BaseViewModel: ViewModel() {
 
     var _failure: MutableLiveData<Failure> = MutableLiveData()
     val failure: LiveData<Failure>

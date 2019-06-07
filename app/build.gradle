@@ -45,6 +45,7 @@ dependencies {
     implementation Libs.lifecycle
     implementation Libs.corektx
     implementation Libs.constraintLayout
+    implementation Libs.materialComponents
 
     implementation Libs.cardview
     implementation Libs.recyclerview
