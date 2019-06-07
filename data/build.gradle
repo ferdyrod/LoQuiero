@@ -36,6 +36,7 @@ dependencies {
     implementation Libs.koinCore
 
     testImplementation TestLibs.kotlinTest
+    testImplementation TestLibs.koinTest
     testImplementation TestLibs.junit
     testImplementation TestLibs.mockito
     testImplementation TestLibs.kluent
