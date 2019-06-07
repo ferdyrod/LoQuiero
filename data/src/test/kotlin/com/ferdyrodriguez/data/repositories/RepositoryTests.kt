@@ -24,7 +24,7 @@ import org.mockito.junit.MockitoJUnitRunner
 import com.nhaarman.mockitokotlin2.given as given1
 
 @RunWith(MockitoJUnitRunner::class)
-class RepositoryTest : AutoCloseKoinTest() {
+class RepositoryTests : AutoCloseKoinTest() {
 
     val modules = module {
         single<MainRepository> { MainRepositoryImpl(remoteDataSource) }
