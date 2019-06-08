@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">LoQuiero</string>
+    <string name="email">Correo</string>
+    <string name="password">Contraseña</string>
+    <string name="password_confirm">Confirmar contraseña</string>
+    <string name="fill_registration_form">Rellena los campos</string>
+    <string name="register">Registrarse</string>
+    <string name="short_password_error">Tiene menos de 6 caracteres</string>
+    <string name="password_dont_match_error">Contraseñas no son iguales</string>
+    <string name="email_format_error">Formato Incorrecto</string>
+    <string name="problem_try_again">Hubo un problema, intenta de nuevo</string>
 </resources>
