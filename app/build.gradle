@@ -28,6 +28,11 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
+    sourceSets {
+        test.java.srcDirs += 'src/test/kotlin'
+        androidTest.java.srcDirs += 'src/androidTest/kotlin'
+    }
 }
 
 
@@ -61,6 +66,11 @@ dependencies {
 
 
     testImplementation TestLibs.junit
+    testImplementation TestLibs.robolectric
     androidTestImplementation TestLibs.runner
+    androidTestImplementation TestLibs.testRules
+    androidTestImplementation TestLibs.testCore
+    androidTestImplementation TestLibs.testCoreKtx
+    androidTestImplementation TestLibs.testExt
     androidTestImplementation TestLibs.espresso
 }

@@ -15,7 +15,7 @@ object Versions {
     val retrofitVersion = "2.5.0"
     val okhttpVersion = "3.14.2"
     val moshiVersion = "1.8.0"
-    val koinVersion ="2.0.0"
+    val koinVersion = "2.0.0"
 
     //Testing
     //Unit Testing
@@ -25,7 +25,8 @@ object Versions {
     val kluentVersion = "1.49"
 
     //Acceptance Testing
-    val runnerVersion = "1.1.1"
+    val testVersion = "1.2.0"
+    val testJunitVersion = "1.1.1"
     val espressoVersion = "3.1.1"
 
 }
@@ -83,10 +84,14 @@ object Libs {
 object TestLibs {
     val kotlinTest = "org.jetbrains.kotlin:kotlin-test-junit:${Versions.kotlin_stdlibVersion}"
     val mockito = "com.nhaarman.mockitokotlin2:mockito-kotlin:${Versions.mockitoVersion}"
-    val robolectric ="org.robolectric:robolectric:${Versions.robolectricVersion}"
+    val robolectric = "org.robolectric:robolectric:${Versions.robolectricVersion}"
     val kluent = "org.amshove.kluent:kluent-android:${Versions.kluentVersion}"
     val junit = "junit:junit:${Versions.junitVersion}"
     val espresso = "androidx.test.espresso:espresso-core:${Versions.espressoVersion}"
-    val runner = "androidx.test:runner:${Versions.runnerVersion}"
     val koinTest = "org.koin:koin-test:${Versions.koinVersion}"
+    val runner = "androidx.test:runner:${Versions.testVersion}"
+    val testCore = "androidx.test:core:${Versions.testVersion}"
+    val testCoreKtx = "androidx.test:core-ktx:${Versions.testVersion}"
+    val testExt = "androidx.test.ext:junit:${Versions.testJunitVersion}"
+    val testRules = "androidx.test:rules:${Versions.testVersion}"
 }
