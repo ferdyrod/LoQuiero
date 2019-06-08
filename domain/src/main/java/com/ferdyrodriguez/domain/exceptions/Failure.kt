@@ -19,10 +19,10 @@ package com.ferdyrodriguez.domain.exceptions
  * Base Class for handling errors/failures/exceptions.
  * Every feature specific failure should extend [FeatureFailure] class.
  */
-sealed class Failure {
-    class NetworkConnection: Failure()
-    class ServerError: Failure()
+sealed class Failure(val errorMessage: String?) {
+    class NetworkConnection: Failure(null)
+    class ServerError(message: String? = null): Failure(message)
 
     /** * Extend this class for feature specific failures.*/
-    abstract class FeatureFailure: Failure()
+    abstract class FeatureFailure(message: String?  = null): Failure(message)
 }

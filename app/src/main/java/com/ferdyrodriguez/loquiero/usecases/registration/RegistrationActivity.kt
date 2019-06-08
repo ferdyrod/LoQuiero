@@ -3,10 +3,12 @@ package com.ferdyrodriguez.loquiero.usecases.registration
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
+import com.ferdyrodriguez.domain.exceptions.Failure
 import com.ferdyrodriguez.loquiero.R
 import com.ferdyrodriguez.loquiero.base.BaseActivity
 import com.ferdyrodriguez.loquiero.databinding.ActivityRegistrationBinding
 import com.ferdyrodriguez.loquiero.extensions.emptyString
+import com.ferdyrodriguez.loquiero.extensions.toast
 import kotlinx.android.synthetic.main.toolbar.view.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -35,6 +37,22 @@ class RegistrationActivity : BaseActivity() {
         viewModel.passwordError.observe(this, Observer(this::setPasswordError))
         viewModel.password2Error.observe(this, Observer(this::setPassword2Error))
 
+        viewModel.isUserRegistrationComplete.observe(this, Observer(this::handleNavigation))
+        viewModel.failure.observe(this, Observer(this::handleFailure))
+
+    }
+
+    private fun handleFailure(failure: Failure) {
+        if(!failure.errorMessage.isNullOrEmpty())
+            toast(failure.errorMessage.toString())
+        else
+            toast(getString(R.string.problem_try_again))
+    }
+
+    private fun handleNavigation(isUserRegisterComplete: Boolean) {
+        if(isUserRegisterComplete){
+
+        }
     }
 
     private fun setPasswordError(isError: Boolean) {
