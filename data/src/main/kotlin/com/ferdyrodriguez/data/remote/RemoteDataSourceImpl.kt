@@ -4,12 +4,14 @@ import com.ferdyrodriguez.data.dataSource.RemoteDataSource
 import com.ferdyrodriguez.data.models.ApiResponse
 import com.ferdyrodriguez.data.models.ErrorResponse
 import com.ferdyrodriguez.data.models.ModelMapper
+import com.ferdyrodriguez.data.models.dto.AuthUserDto
 import com.ferdyrodriguez.data.models.dto.RegisterUserDto
 import com.ferdyrodriguez.domain.exceptions.Failure
 import com.ferdyrodriguez.domain.exceptions.Failure.ServerError
 import com.ferdyrodriguez.domain.fp.Either
 import com.ferdyrodriguez.domain.fp.Either.Left
 import com.ferdyrodriguez.domain.fp.Either.Right
+import com.ferdyrodriguez.domain.models.AuthUser
 import com.ferdyrodriguez.domain.models.RegisterUser
 import com.squareup.moshi.Moshi
 import retrofit2.Call
@@ -23,6 +25,10 @@ class RemoteDataSourceImpl constructor(private val service: ApiService,
         return request(call, { mapper.RegisterUserToDomain(it) }, mapper.emptyRegisterUsed())
     }
 
+    override fun logInUser(email: String, password: String): Either<Failure, AuthUser> {
+        val call = service.logInUser(AuthUserDto(email, password))
+        return request(call, {mapper.AuthUserToDomain(it) }, mapper.emptyAuthUser())
+    }
 
     private fun <T, R> request(call: Call<ApiResponse<T>>, transform: (T) -> R, default: T): Either<Failure, R> {
         return try {

@@ -1,10 +1,11 @@
 package com.ferdyrodriguez.data.repositories
 
 import com.ferdyrodriguez.data.dataSource.RemoteDataSource
+import com.ferdyrodriguez.data.emptyAuthEither
+import com.ferdyrodriguez.data.emptyRegisterEither
 import com.ferdyrodriguez.domain.MainRepository
 import com.ferdyrodriguez.domain.exceptions.Failure
 import com.ferdyrodriguez.domain.fp.Either
-import com.ferdyrodriguez.domain.models.RegisterUser
 import com.nhaarman.mockitokotlin2.given
 import com.nhaarman.mockitokotlin2.verify
 import com.nhaarman.mockitokotlin2.verifyNoMoreInteractions
@@ -34,8 +35,6 @@ class RepositoryTests : AutoCloseKoinTest() {
     private lateinit var remoteDataSource: RemoteDataSource
     private val repository: MainRepository by inject()
 
-    private val emptyRegisterUser = RegisterUser(0, "")
-    private val emptyEither: Either<Failure, RegisterUser> = Either.Right(emptyRegisterUser)
 
     @Before
     fun setUp() {
@@ -46,14 +45,14 @@ class RepositoryTests : AutoCloseKoinTest() {
     @Test
     fun `should register user successfully`() {
         loadKoinModules(modules)
-        given { remoteDataSource.registerUser("email", "password") }.willReturn(emptyEither)
+        given { remoteDataSource.registerUser("email", "password") }.willReturn(emptyRegisterEither)
 
         val registeredUser = repository.registerUser("email", "password")
 
         verify(remoteDataSource).registerUser("email", "password")
         verifyNoMoreInteractions(remoteDataSource)
         registeredUser.isRight shouldBe true
-        registeredUser shouldEqual emptyEither
+        registeredUser shouldEqual emptyRegisterEither
     }
 
     @Test
@@ -67,6 +66,32 @@ class RepositoryTests : AutoCloseKoinTest() {
         verifyNoMoreInteractions(remoteDataSource)
         registeredUser.isLeft shouldBe true
         registeredUser shouldBeInstanceOf Either::class
+    }
+
+    @Test
+    fun `should login user successfully`() {
+        loadKoinModules(modules)
+        given { remoteDataSource.logInUser("email", "password") }.willReturn(emptyAuthEither)
+
+        val loggedInUser = repository.logInUser("email", "password")
+
+        verify(remoteDataSource).logInUser("email", "password")
+        verifyNoMoreInteractions(remoteDataSource)
+        loggedInUser.isRight shouldBe true
+        loggedInUser shouldEqual emptyAuthEither
+    }
+
+    @Test
+    fun `should fail lgoin user`() {
+        loadKoinModules(modules)
+        given { remoteDataSource.logInUser("email", "password") }.willReturn(Either.Left(Failure.ServerError()))
+
+        val loggedInUser = repository.logInUser("email", "password")
+
+        verify(remoteDataSource).logInUser("email", "password")
+        verifyNoMoreInteractions(remoteDataSource)
+        loggedInUser.isLeft shouldBe true
+        loggedInUser shouldBeInstanceOf Either::class
     }
 
 

@@ -23,6 +23,11 @@ android {
         }
     }
 
+    sourceSets {
+        main.java.srcDirs += 'src/kotlin'
+        test.java.srcDirs += 'src/test/kotlin'
+    }
+
 }
 
 dependencies {
