@@ -51,7 +51,7 @@ class RegistrationActivity : BaseActivity() {
 
     private fun handleNavigation(isUserRegisterComplete: Boolean) {
         if(isUserRegisterComplete){
-
+            navigator.toProfileRegistration()
         }
     }
 
