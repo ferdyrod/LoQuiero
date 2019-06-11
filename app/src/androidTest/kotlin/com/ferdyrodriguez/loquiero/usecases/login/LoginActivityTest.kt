@@ -64,13 +64,11 @@ class LoginActivityTest {
 
     @Test
     fun loginButtonClick_showSuccessToast(){
-        val activity = rule.activity
         onView(withId(R.id.email)).perform(typeText("email@test.com"))
         closeSoftKeyboard()
         onView(withId(R.id.password)).perform(typeText("123456"))
         closeSoftKeyboard()
         onView(withId(R.id.loginButton)).check(matches(isEnabled()))
         onView(withId(R.id.loginButton)).perform(click())
-
     }
 }
