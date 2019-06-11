@@ -1,4 +1,4 @@
-package com.ferdyrodriguez.loquiero
+package com.ferdyrodriguez.loquiero.usecases.registration
 
 import androidx.test.espresso.Espresso.closeSoftKeyboard
 import androidx.test.espresso.Espresso.onView
@@ -9,7 +9,7 @@ import androidx.test.espresso.matcher.RootMatchers.withDecorView
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.rule.ActivityTestRule
-import com.ferdyrodriguez.loquiero.usecases.registration.RegistrationActivity
+import com.ferdyrodriguez.loquiero.R
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.CoreMatchers.not
 import org.junit.Rule
