@@ -74,12 +74,25 @@ class RegistrationViewModel(
     }
 
     fun validatePassword(password: String) {
-        if (password.length > 5) {
-            validPassword = true
-            _passwordError.value = false
-        } else {
-            validPassword = false
-            _passwordError.value = true
+        when {
+            password.length > 5 -> {
+                validPassword = true
+                _passwordError.value = false
+                when {
+                    password2.value != password -> {
+                        validPassword2 = false
+                        _password2Error.value = true
+                    }
+                    else -> {
+                        validPassword2 = true
+                        _password2Error.value = false
+                    }
+                }
+            }
+            else -> {
+                validPassword = false
+                _passwordError.value = true
+            }
         }
         isFormValid()
     }

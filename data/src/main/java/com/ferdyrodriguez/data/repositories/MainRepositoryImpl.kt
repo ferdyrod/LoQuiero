@@ -4,6 +4,7 @@ import com.ferdyrodriguez.data.dataSource.RemoteDataSource
 import com.ferdyrodriguez.domain.MainRepository
 import com.ferdyrodriguez.domain.exceptions.Failure
 import com.ferdyrodriguez.domain.fp.Either
+import com.ferdyrodriguez.domain.models.AuthUser
 import com.ferdyrodriguez.domain.models.RegisterUser
 
 class MainRepositoryImpl constructor(private val remoteDataSource: RemoteDataSource): MainRepository {
@@ -14,4 +15,7 @@ class MainRepositoryImpl constructor(private val remoteDataSource: RemoteDataSou
 
     override fun registerUser(email: String, password: String): Either<Failure, RegisterUser> =
             remoteDataSource.registerUser(email, password)
+
+    override fun logInUser(email: String, password: String): Either<Failure, AuthUser> =
+            remoteDataSource.logInUser(email, password)
 }

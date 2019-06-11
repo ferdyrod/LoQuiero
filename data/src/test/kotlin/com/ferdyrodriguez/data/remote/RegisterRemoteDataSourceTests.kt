@@ -27,7 +27,7 @@ import retrofit2.Call
 import retrofit2.Response
 
 @RunWith(MockitoJUnitRunner::class)
-class RemoteDataSourceTests: AutoCloseKoinTest() {
+class RegisterRemoteDataSourceTests: AutoCloseKoinTest() {
 
     val modules = module {
         factory<RemoteDataSource> { RemoteDataSourceImpl(service, mapper) }
@@ -46,10 +46,10 @@ class RemoteDataSourceTests: AutoCloseKoinTest() {
     }
 
     @Test
-    fun `should return registered user from repository`(){
+    fun `should return registered user from dataSource`(){
         loadKoinModules(modules)
         val userDto = RegisterUserDto("email", "password")
-        val rightResponse = ApiResponse(200,"", RegisterUserEntity(0, ""))
+        val rightResponse = ApiResponse(RegisterUserEntity(0, ""))
 
         given { response.body() } willReturn { rightResponse }
         given { response.isSuccessful } willReturn { true}
