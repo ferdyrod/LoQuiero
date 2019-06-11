@@ -49,7 +49,7 @@ class LoginActivity : BaseActivity() {
 
     private fun handleNavigation(isLoginComplete: Boolean) {
         if(isLoginComplete){
-            toast("Login is!!!")
+            navigator.toMain()
         }
     }
 

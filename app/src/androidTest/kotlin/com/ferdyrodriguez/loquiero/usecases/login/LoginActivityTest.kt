@@ -51,28 +51,24 @@ class LoginActivityTest {
     @Test
     fun loginButtonClick_showErrorToast(){
         val activity = rule.activity
-        onView(withId(R.id.email)).perform(typeText("email@test.com"))
+        onView(withId(R.id.email)).perform(typeText("emailj@test.com"))
         closeSoftKeyboard()
         onView(withId(R.id.password)).perform(typeText("123456"))
         closeSoftKeyboard()
         onView(withId(R.id.loginButton)).check(matches(isEnabled()))
         onView(withId(R.id.loginButton)).perform(click())
-        onView(withText(R.string.problem_try_again)).
+        onView(withText("No active account found with the given credentials")).
             inRoot(withDecorView(not(`is`(activity.window.decorView)))).
             check(matches(isDisplayed()))
     }
 
     @Test
     fun loginButtonClick_showSuccessToast(){
-        val activity = rule.activity
         onView(withId(R.id.email)).perform(typeText("email@test.com"))
         closeSoftKeyboard()
         onView(withId(R.id.password)).perform(typeText("123456"))
         closeSoftKeyboard()
         onView(withId(R.id.loginButton)).check(matches(isEnabled()))
         onView(withId(R.id.loginButton)).perform(click())
-        onView(withText("Login is!!!")).
-            inRoot(withDecorView(not(`is`(activity.window.decorView)))).
-            check(matches(isDisplayed()))
     }
 }
