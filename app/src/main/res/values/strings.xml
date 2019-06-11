@@ -9,4 +9,6 @@
     <string name="password_dont_match_error">Contraseñas no son iguales</string>
     <string name="email_format_error">Formato Incorrecto</string>
     <string name="problem_try_again">Hubo un problema, intenta de nuevo</string>
+    <string name="login_title">Login</string>
+    <string name="login">login</string>
 </resources>
