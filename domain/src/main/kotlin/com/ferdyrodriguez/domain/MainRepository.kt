@@ -8,6 +8,8 @@ import com.ferdyrodriguez.domain.models.RegisterUser
 interface MainRepository {
 
     fun getAuthToken(): Either<Failure, String>
+    fun refreshToken(): Either<Failure, AuthUser>
+    fun verifyToken(): Either<Failure, Map<String, String>>
     fun registerUser(email: String, password: String): Either<Failure, RegisterUser>
     fun logInUser(email: String, password: String): Either<Failure, AuthUser>
 

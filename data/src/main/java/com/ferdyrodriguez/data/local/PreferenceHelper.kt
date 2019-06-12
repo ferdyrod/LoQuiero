@@ -1,4 +1,4 @@
-package com.ferdyrodriguez.loquiero.utils
+package com.ferdyrodriguez.data.local
 
 import android.content.SharedPreferences
 

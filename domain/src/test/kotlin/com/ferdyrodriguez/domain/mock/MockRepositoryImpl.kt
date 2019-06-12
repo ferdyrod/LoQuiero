@@ -19,4 +19,12 @@ class MockRepositoryImpl : MainRepository {
     override fun logInUser(email: String, password: String): Either<Failure, AuthUser> {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
+
+    override fun verifyToken(): Either<Failure, Map<String, String>> {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun refreshToken(): Either<Failure, AuthUser> {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 }

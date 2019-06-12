@@ -1,5 +1,9 @@
 package com.ferdyrodriguez.data.models
 
-data class ErrorResponse(val error: String)
+import com.squareup.moshi.Json
+
+data class ErrorResponse(@Json(name = "data") val data: ErrorMessage)
+
+data class ErrorMessage(val error: String)
 
 

@@ -2,12 +2,11 @@ package com.ferdyrodriguez.loquiero.usecases.login
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.ferdyrodriguez.data.local.PreferenceHelper
 import com.ferdyrodriguez.domain.models.AuthUser
 import com.ferdyrodriguez.domain.usecases.LoginUseCase
 import com.ferdyrodriguez.loquiero.base.BaseViewModel
 import com.ferdyrodriguez.loquiero.extensions.isEmail
-import com.ferdyrodriguez.loquiero.utils.Constants
-import com.ferdyrodriguez.loquiero.utils.PreferenceHelper
 
 
 class LoginViewModel(
@@ -45,8 +44,6 @@ class LoginViewModel(
     }
 
     private fun handleLogin(user: AuthUser) {
-        prefs.setPreference(Constants.AUTH_TOKEN, user.authToken)
-        prefs.setPreference(Constants.REFRESH_TOKEN, user.refreshToken)
         _isLoginComplete.value = true
     }
 

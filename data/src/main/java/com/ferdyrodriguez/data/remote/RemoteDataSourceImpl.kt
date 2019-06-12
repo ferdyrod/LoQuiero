@@ -6,6 +6,7 @@ import com.ferdyrodriguez.data.models.ErrorResponse
 import com.ferdyrodriguez.data.models.ModelMapper
 import com.ferdyrodriguez.data.models.dto.AuthUserDto
 import com.ferdyrodriguez.data.models.dto.RegisterUserDto
+import com.ferdyrodriguez.data.models.dto.TokenDto
 import com.ferdyrodriguez.domain.exceptions.Failure
 import com.ferdyrodriguez.domain.exceptions.Failure.ServerError
 import com.ferdyrodriguez.domain.fp.Either
@@ -25,6 +26,16 @@ class RemoteDataSourceImpl constructor(private val service: ApiService,
         return request(call, { mapper.RegisterUserToDomain(it) }, mapper.emptyRegisterUsed())
     }
 
+    override fun verifyToken(token: String): Either<Failure, Map<String, String>> {
+        val call = service.verifyToken(TokenDto(token))
+        return request(call, { emptyMap<String, String>() }, emptyMap<String, String>())
+    }
+
+    override fun refreshToken(token: String): Either<Failure, AuthUser> {
+        val call = service.refreshToken(TokenDto(token))
+        return request(call, { mapper.AuthUserToDomain(it) }, mapper.emptyAuthUser())
+    }
+
     override fun logInUser(email: String, password: String): Either<Failure, AuthUser> {
         val call = service.logInUser(AuthUserDto(email, password))
         return request(call, {mapper.AuthUserToDomain(it) }, mapper.emptyAuthUser())
@@ -39,7 +50,7 @@ class RemoteDataSourceImpl constructor(private val service: ApiService,
                     val moshi = Moshi.Builder().build()
                     val adapter = moshi.adapter(ErrorResponse::class.java)
                     val errorResponse = adapter.fromJson(response.errorBody()?.string() ?: "")
-                    val message = errorResponse?.error
+                    val message = errorResponse?.data?.error
                     Left(ServerError(message))
                 }
             }
