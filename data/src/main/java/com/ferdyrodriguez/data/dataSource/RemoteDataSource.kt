@@ -9,4 +9,6 @@ interface RemoteDataSource {
 
     fun registerUser(email: String, password: String): Either<Failure, RegisterUser>
     fun logInUser(email: String, password: String): Either<Failure, AuthUser>
+    fun verifyToken(token: String): Either<Failure, Map<String, String>>
+    fun refreshToken(token: String): Either<Failure, AuthUser>
 }

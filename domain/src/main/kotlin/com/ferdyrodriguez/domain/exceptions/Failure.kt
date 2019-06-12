@@ -22,6 +22,7 @@ package com.ferdyrodriguez.domain.exceptions
 sealed class Failure(val errorMessage: String?) {
     class NetworkConnection: Failure(null)
     class ServerError(message: String? = null): Failure(message)
+    class LocalError(message: String? = null): Failure(message)
 
     /** * Extend this class for feature specific failures.*/
     abstract class FeatureFailure(message: String?  = null): Failure(message)

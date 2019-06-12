@@ -2,12 +2,12 @@ package com.ferdyrodriguez.loquiero.usecases.registration
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.ferdyrodriguez.data.local.PreferenceHelper
 import com.ferdyrodriguez.domain.models.RegisterUser
 import com.ferdyrodriguez.domain.usecases.RegisterUserUseCase
 import com.ferdyrodriguez.loquiero.base.BaseViewModel
 import com.ferdyrodriguez.loquiero.extensions.isEmail
 import com.ferdyrodriguez.loquiero.utils.Constants
-import com.ferdyrodriguez.loquiero.utils.PreferenceHelper
 
 
 class RegistrationViewModel(

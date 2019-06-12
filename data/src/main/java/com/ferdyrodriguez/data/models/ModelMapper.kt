@@ -11,8 +11,8 @@ class ModelMapper {
     )
 
     fun AuthUserToDomain(entity: AuthUserEntity): AuthUser = AuthUser(
-        entity.refreshToken,
-        entity.authToken
+        entity.refresh,
+        entity.access
     )
 
 

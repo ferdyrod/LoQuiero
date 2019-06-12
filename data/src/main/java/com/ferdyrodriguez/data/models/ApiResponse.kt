@@ -1,3 +1,5 @@
 package com.ferdyrodriguez.data.models
 
-data class ApiResponse<T>(val data: T)
+import com.squareup.moshi.Json
+
+data class ApiResponse<T>(@Json(name = "data") val data: T)

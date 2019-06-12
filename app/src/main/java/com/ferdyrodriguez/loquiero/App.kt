@@ -1,6 +1,7 @@
 package com.ferdyrodriguez.loquiero
 
 import android.app.Application
+import com.facebook.stetho.Stetho
 import com.ferdyrodriguez.loquiero.di.appModule
 import com.ferdyrodriguez.loquiero.di.networkModule
 import com.ferdyrodriguez.loquiero.di.repositoryModule
@@ -19,6 +20,9 @@ class App: Application() {
             androidContext(this@App)
             modules(listOf(appModule, networkModule, repositoryModule, viewModelModule))
         }
+
+        if(BuildConfig.DEBUG)
+            Stetho.initializeWithDefaults(this)
     }
 
 
