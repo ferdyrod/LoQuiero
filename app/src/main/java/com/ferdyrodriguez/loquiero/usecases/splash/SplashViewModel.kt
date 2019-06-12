@@ -10,7 +10,7 @@ class SplashViewModel(private val verifyUseCase: VerifyUseCase,
 
     fun verifyLogin() {
         verifyUseCase(UseCase.None()) {
-            it.either({  }, {  })
+            it.either({ navigator.toLoginOrRegistration() }, {  })
 
         }
     }
