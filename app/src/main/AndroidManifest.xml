@@ -15,8 +15,6 @@
             android:theme="@style/AppTheme"
             android:usesCleartextTraffic="true"
             tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".usecases.loginOrRegistration.LoginOrRegistrationActivity">
-        </activity>
         <activity android:name=".usecases.splash.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -24,8 +22,10 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+        <activity android:name=".usecases.loginOrRegistration.LoginOrRegistrationActivity"/>
         <activity android:name=".usecases.login.LoginActivity"/>
         <activity android:name=".usecases.registration.RegistrationActivity"/>
+        <activity android:name=".usecases.main.MainActivity"/>
     </application>
 
 </manifest>
