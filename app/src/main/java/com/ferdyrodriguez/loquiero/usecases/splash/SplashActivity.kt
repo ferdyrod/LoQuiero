@@ -1,12 +1,12 @@
 package com.ferdyrodriguez.loquiero.usecases.splash
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import com.ferdyrodriguez.loquiero.R
+import com.ferdyrodriguez.loquiero.base.BaseActivity
 import kotlinx.coroutines.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class SplashActivity : AppCompatActivity() {
+class SplashActivity : BaseActivity() {
 
     private val splashViewModel : SplashViewModel by viewModel()
 
