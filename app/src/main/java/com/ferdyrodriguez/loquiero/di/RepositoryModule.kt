@@ -7,6 +7,7 @@ import com.ferdyrodriguez.data.models.ModelMapper
 import com.ferdyrodriguez.data.remote.RemoteDataSourceImpl
 import com.ferdyrodriguez.data.repositories.MainRepositoryImpl
 import com.ferdyrodriguez.domain.MainRepository
+import com.ferdyrodriguez.domain.usecases.AddProductUseCase
 import com.ferdyrodriguez.domain.usecases.LoginUseCase
 import com.ferdyrodriguez.domain.usecases.RegisterUserUseCase
 import com.ferdyrodriguez.domain.usecases.VerifyUseCase
@@ -22,4 +23,5 @@ val repositoryModule: Module = module {
     factory { LoginUseCase(get()) }
     factory { VerifyUseCase(get()) }
     factory { RegisterUserUseCase(get()) }
+    factory { AddProductUseCase(get()) }
 }

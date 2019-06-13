@@ -5,6 +5,7 @@ import com.ferdyrodriguez.data.models.RegisterUserEntity
 import com.ferdyrodriguez.domain.exceptions.Failure
 import com.ferdyrodriguez.domain.fp.Either
 import com.ferdyrodriguez.domain.models.AuthUser
+import com.ferdyrodriguez.domain.models.Product
 import com.ferdyrodriguez.domain.models.RegisterUser
 import org.mockito.Mock
 import retrofit2.Call
@@ -14,6 +15,9 @@ val emptyRegisterUser = RegisterUser(0, "")
 val emptyRegisterEither: Either<Failure, RegisterUser> = Either.Right(emptyRegisterUser)
 val emptyAuthUser = AuthUser("", "")
 val emptyAuthEither: Either<Failure, AuthUser> = Either.Right(emptyAuthUser)
+
+val emptyProduct = Product(0,0, "", "", "", "", false, 100, "", "", null)
+val emptyProductEither = Either.Right(emptyProduct)
 
 
 @Mock lateinit var registerResponse: Response<ApiResponse<RegisterUserEntity>>

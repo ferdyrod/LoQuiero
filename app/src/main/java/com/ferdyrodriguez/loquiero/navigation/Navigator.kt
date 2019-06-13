@@ -1,7 +1,9 @@
 package com.ferdyrodriguez.loquiero.navigation
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import com.ferdyrodriguez.loquiero.usecases.addproduct.AddProductActivity
 import com.ferdyrodriguez.loquiero.usecases.login.LoginActivity
 import com.ferdyrodriguez.loquiero.usecases.loginOrRegistration.LoginOrRegistrationActivity
 import com.ferdyrodriguez.loquiero.usecases.main.MainActivity
@@ -26,10 +28,17 @@ class Navigator constructor(private val context: Context) {
         context.startActivity(intent)
     }
 
-    fun toMain() {
+    fun toMain(finish: Boolean) {
         val intent = Intent(context, MainActivity::class.java)
+        if(finish) {
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+        }
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         context.startActivity(intent)
+    }
+
+    fun toAddProduct(activity: Activity, requestCode: Int) {
+        activity.startActivityForResult(Intent(activity, AddProductActivity::class.java), requestCode)
     }
 
     fun toProfileRegistration() {
