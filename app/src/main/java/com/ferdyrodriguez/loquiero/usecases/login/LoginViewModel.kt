@@ -2,7 +2,6 @@ package com.ferdyrodriguez.loquiero.usecases.login
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.ferdyrodriguez.data.local.PreferenceHelper
 import com.ferdyrodriguez.domain.models.AuthUser
 import com.ferdyrodriguez.domain.usecases.LoginUseCase
 import com.ferdyrodriguez.loquiero.base.BaseViewModel
@@ -10,9 +9,7 @@ import com.ferdyrodriguez.loquiero.extensions.isEmail
 
 
 class LoginViewModel(
-    private val useCase: LoginUseCase,
-    private val prefs: PreferenceHelper
-) : BaseViewModel() {
+    private val useCase: LoginUseCase) : BaseViewModel() {
 
     var email: MutableLiveData<String> = MutableLiveData()
     private var _emailError: MutableLiveData<Boolean> = MutableLiveData()
