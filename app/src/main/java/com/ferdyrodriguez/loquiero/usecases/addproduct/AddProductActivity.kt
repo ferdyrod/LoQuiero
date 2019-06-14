@@ -1,8 +1,11 @@
 package com.ferdyrodriguez.loquiero.usecases.addproduct
 
+import android.Manifest
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.MenuItem
+import androidx.core.app.ActivityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import com.ferdyrodriguez.domain.exceptions.Failure
@@ -20,6 +23,10 @@ import pl.aprilapps.easyphotopicker.MediaFile
 import pl.aprilapps.easyphotopicker.MediaSource
 
 class AddProductActivity : BaseActivity() {
+
+    companion object {
+        const val PERMISSION_REQUEST = 1101
+    }
 
     private lateinit var binding: ActivityAddProductBinding
 
@@ -60,6 +67,17 @@ class AddProductActivity : BaseActivity() {
         })
     }
 
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == PERMISSION_REQUEST) {
+            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                easyImage.openChooser(this)
+            } else {
+                toast("Se necesita permiso para usar la camera del dispositivo")
+            }
+        }
+    }
+
     private fun handleFailure(failure: Failure) {
         if (!failure.errorMessage.isNullOrEmpty())
             toast(failure.errorMessage.toString())
@@ -81,7 +99,11 @@ class AddProductActivity : BaseActivity() {
     }
 
     private fun openChooser(event: Event<Boolean>?) {
-        easyImage.openGallery(this)
+        if(ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
+            easyImage.openChooser(this)
+        } else {
+            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.CAMERA), PERMISSION_REQUEST)
+        }
     }
 
     private fun checkPrice(price: String) {
