@@ -4,7 +4,9 @@ import com.ferdyrodriguez.domain.MainRepository
 import com.ferdyrodriguez.domain.exceptions.Failure
 import com.ferdyrodriguez.domain.fp.Either
 import com.ferdyrodriguez.domain.models.AuthUser
+import com.ferdyrodriguez.domain.models.Product
 import com.ferdyrodriguez.domain.models.RegisterUser
+import java.io.File
 
 class MockRepositoryImpl : MainRepository {
 
@@ -25,6 +27,11 @@ class MockRepositoryImpl : MainRepository {
     }
 
     override fun refreshToken(): Either<Failure, AuthUser> {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun addProduct(product: String, description: String?, price: Int, mediaFile: File):
+            Either<Failure, Product> {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 }

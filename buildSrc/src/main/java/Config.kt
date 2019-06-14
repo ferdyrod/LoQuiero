@@ -16,6 +16,7 @@ object Versions {
     val okhttpVersion = "3.14.2"
     val moshiVersion = "1.8.0"
     val koinVersion = "2.0.0"
+    val easyImageVersion = "3.0.1"
 
     //Testing
     //Unit Testing
@@ -75,6 +76,7 @@ object Libs {
 
     val glide = "com.github.bumptech.glide:glide:${Versions.glideVersion}"
     val glideCompiler = "com.github.bumptech.glide:compiler:${Versions.glideVersion}"
+    val easyImage = "com.github.jkwiecien:EasyImage:${Versions.easyImageVersion}"
 
     val koinCore = "org.koin:koin-core:${Versions.koinVersion}"
     val koinAndroid = "org.koin:koin-android:${Versions.koinVersion}"

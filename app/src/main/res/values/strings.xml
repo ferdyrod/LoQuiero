@@ -12,4 +12,11 @@
     <string name="login_title">Login</string>
     <string name="login">login</string>
     <string name="register_option">O puedes resgistarte aqui</string>
+    <string name="product">Producto</string>
+    <string name="photo_message">Pincha aqui para agregar foto</string>
+    <string name="title">Titulo</string>
+    <string name="description">Descripción</string>
+    <string name="price">Precio</string>
+    <string name="add_product">Añadir producto</string>
+    <string name="product_added">Se agrego el producto</string>
 </resources>

@@ -7,7 +7,9 @@ import com.ferdyrodriguez.domain.exceptions.Failure
 import com.ferdyrodriguez.domain.fp.Either
 import com.ferdyrodriguez.domain.fp.flatMap
 import com.ferdyrodriguez.domain.models.AuthUser
+import com.ferdyrodriguez.domain.models.Product
 import com.ferdyrodriguez.domain.models.RegisterUser
+import java.io.File
 
 class MainRepositoryImpl constructor(private val remoteDataSource: RemoteDataSource,
                                      private val localDataSource: LocalDataSource): MainRepository {
@@ -44,5 +46,6 @@ class MainRepositoryImpl constructor(private val remoteDataSource: RemoteDataSou
                 }
             }
 
-
+    override fun addProduct(title: String, description: String?, price: Int, mediaFile: File):
+            Either<Failure, Product> = remoteDataSource.addProduct(title, description, price, mediaFile)
 }

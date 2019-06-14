@@ -65,6 +65,7 @@ dependencies {
     implementation Libs.retrofitMoshi
     implementation Libs.okhttp
     implementation Libs.okhttpInterceptor
+    implementation Libs.easyImage
 
 
     testImplementation TestLibs.junit

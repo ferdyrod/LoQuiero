@@ -5,6 +5,7 @@ import com.ferdyrodriguez.data.models.ApiResponse
 import com.ferdyrodriguez.data.models.ErrorResponse
 import com.ferdyrodriguez.data.models.ModelMapper
 import com.ferdyrodriguez.data.models.dto.AuthUserDto
+import com.ferdyrodriguez.data.models.dto.RefreshTokenDto
 import com.ferdyrodriguez.data.models.dto.RegisterUserDto
 import com.ferdyrodriguez.data.models.dto.TokenDto
 import com.ferdyrodriguez.domain.exceptions.Failure
@@ -13,9 +14,14 @@ import com.ferdyrodriguez.domain.fp.Either
 import com.ferdyrodriguez.domain.fp.Either.Left
 import com.ferdyrodriguez.domain.fp.Either.Right
 import com.ferdyrodriguez.domain.models.AuthUser
+import com.ferdyrodriguez.domain.models.Product
 import com.ferdyrodriguez.domain.models.RegisterUser
 import com.squareup.moshi.Moshi
+import okhttp3.MediaType
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.Call
+import java.io.File
 
 class RemoteDataSourceImpl constructor(private val service: ApiService,
                                        private val mapper: ModelMapper) : RemoteDataSource {
@@ -32,13 +38,26 @@ class RemoteDataSourceImpl constructor(private val service: ApiService,
     }
 
     override fun refreshToken(token: String): Either<Failure, AuthUser> {
-        val call = service.refreshToken(TokenDto(token))
+        val call = service.refreshToken(RefreshTokenDto(token))
         return request(call, { mapper.AuthUserToDomain(it) }, mapper.emptyAuthUser())
     }
 
     override fun logInUser(email: String, password: String): Either<Failure, AuthUser> {
         val call = service.logInUser(AuthUserDto(email, password))
         return request(call, {mapper.AuthUserToDomain(it) }, mapper.emptyAuthUser())
+    }
+
+    override fun addProduct(title: String, description: String?, price: Int, mediaFiles: File):
+            Either<Failure, Product> {
+        val requestBodyTitle = RequestBody.create(MediaType.parse("multipart/form"), title)
+        val requestBodyDesc = RequestBody.create(MediaType.parse("multipart/form"), description ?: "")
+        val requestBodyprice = RequestBody.create(MediaType.parse("multipart/form"), price.toString())
+        val requestPartImage = RequestBody.create(MediaType.parse("multipart/form"), mediaFiles)
+
+        val imagePart: MultipartBody.Part = MultipartBody.Part.createFormData("image", mediaFiles.name, requestPartImage)
+
+        val call = service.addProduct(requestBodyTitle, requestBodyDesc, requestBodyprice, imagePart)
+        return request(call,{ mapper.productToDomain(it) }, mapper.emptyProduct())
     }
 
     private fun <T, R> request(call: Call<ApiResponse<T>>, transform: (T) -> R, default: T): Either<Failure, R> {
