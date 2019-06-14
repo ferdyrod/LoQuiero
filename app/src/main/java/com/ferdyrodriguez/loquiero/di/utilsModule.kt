@@ -1,6 +1,7 @@
 package com.ferdyrodriguez.loquiero.di
 
 import com.ferdyrodriguez.loquiero.usecases.addproduct.AddProductActivity
+import com.ferdyrodriguez.loquiero.usecases.main.ProductsAdapter
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
 import pl.aprilapps.easyphotopicker.ChooserType
@@ -18,4 +19,6 @@ val utilsModule = module {
                 .build()
         }
     }
+
+    factory { ProductsAdapter(get()) }
 }

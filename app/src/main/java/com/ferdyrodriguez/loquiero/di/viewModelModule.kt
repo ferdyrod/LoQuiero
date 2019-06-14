@@ -15,6 +15,6 @@ val viewModelModule = module {
     viewModel { LoginOrRegistrationViewModel(get()) }
     viewModel { RegistrationViewModel(get(), get()) }
     viewModel { LoginViewModel(get()) }
-    viewModel { MainViewModel() }
+    viewModel { MainViewModel(get()) }
     viewModel { AddProductViewModel(get()) }
 }

@@ -8,6 +8,7 @@ data class ProductEntity(val id: Int,
                          val status: String,
                          val active: Boolean,
                          val price: Int,
+                         val image: String?,
                          val created: String,
                          val updated: String,
                          val transaction: TransactionEntity?)

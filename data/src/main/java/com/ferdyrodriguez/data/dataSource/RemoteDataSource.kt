@@ -14,4 +14,5 @@ interface RemoteDataSource {
     fun verifyToken(token: String): Either<Failure, Map<String, String>>
     fun refreshToken(token: String): Either<Failure, AuthUser>
     fun addProduct(title: String, description: String?, price: Int, mediaFile: File): Either<Failure, Product>
+    fun getProducts(): Either<Failure, List<Product>>
 }
