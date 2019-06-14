@@ -43,24 +43,34 @@ class AddProductTest : AutoCloseKoinTest() {
     @Test
     fun `should login user successfully`() {
         loadKoinModules(modules)
-        given { repository.addProduct(product.title, product.description, product.price) } willReturn { Either.Right(product)}
+        given { repository.addProduct(product.title, product.description, product.price, params.mediaFile) } willReturn { Either.Right(product)}
 
-        runBlocking { useCase.run(AddProductUseCase.Params(product.title, product.description, product.price)) }
+        runBlocking { useCase.run(AddProductUseCase.Params(
+            product.title,
+            product.description,
+            product.price,
+            photo.value!!
+        )) }
 
-        verify(repository).addProduct(product.title, product.description, product.price)
+        verify(repository).addProduct(product.title, product.description, product.price, params.mediaFile)
         verifyNoMoreInteractions(repository)
-        repository.addProduct(product.title, product.description, product.price).isRight shouldBe true
+        repository.addProduct(product.title, product.description, product.price, params.mediaFile).isRight shouldBe true
     }
 
     @Test
     fun `should return error when there is a problem`() {
         loadKoinModules(modules)
 
-        given { repository.addProduct(product.title, product.description, product.price) } willReturn { Either.Left(Failure.ServerError()) }
+        given { repository.addProduct(product.title, product.description, product.price, params.mediaFile) } willReturn { Either.Left(Failure.ServerError()) }
 
-        runBlocking { useCase.run(AddProductUseCase.Params(product.title, product.description, product.price)) }
-        verify(repository).addProduct(product.title, product.description, product.price)
+        runBlocking { useCase.run(AddProductUseCase.Params(
+            product.title,
+            product.description,
+            product.price,
+            photo.value!!
+        )) }
+        verify(repository).addProduct(product.title, product.description, product.price, params.mediaFile)
         verifyNoMoreInteractions(repository)
-        repository.addProduct(product.title, product.description, product.price).isLeft shouldBe true
+        repository.addProduct(product.title, product.description, product.price, params.mediaFile).isLeft shouldBe true
     }
 }

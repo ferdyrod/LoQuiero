@@ -1,5 +1,6 @@
 package com.ferdyrodriguez.loquiero.usecases.addproduct
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.databinding.DataBindingUtil
@@ -11,13 +12,19 @@ import com.ferdyrodriguez.loquiero.databinding.ActivityAddProductBinding
 import com.ferdyrodriguez.loquiero.extensions.toast
 import com.ferdyrodriguez.loquiero.utils.Event
 import kotlinx.android.synthetic.main.toolbar.view.*
-import org.koin.android.ext.android.inject
+import org.koin.androidx.scope.currentScope
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import pl.aprilapps.easyphotopicker.DefaultCallback
+import pl.aprilapps.easyphotopicker.EasyImage
+import pl.aprilapps.easyphotopicker.MediaFile
+import pl.aprilapps.easyphotopicker.MediaSource
 
 class AddProductActivity : BaseActivity() {
 
     private lateinit var binding: ActivityAddProductBinding
 
-    private val viewModel: AddProductViewModel by inject()
+    private val viewModel: AddProductViewModel by viewModel()
+    private val easyImage: EasyImage by currentScope.inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,11 +40,24 @@ class AddProductActivity : BaseActivity() {
             it?.setHomeAsUpIndicator(R.drawable.ic_arrow_back)
         }
 
+
+
         viewModel.title.observe(this, Observer(::checkTitle))
         viewModel.price.observe(this, Observer(::checkPrice))
 
+        viewModel.openChooser.observe(this, Observer(::openChooser))
         viewModel.isProductAdded.observe(this, Observer(::handleNavigation))
         viewModel.failure.observe(this, Observer(::handleFailure))
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        easyImage.handleActivityResult(requestCode, resultCode, data, this, object: DefaultCallback(){
+            override fun onMediaFilesPicked(imageFiles: Array<MediaFile>, source: MediaSource) {
+                if(imageFiles.isNotEmpty())
+                    viewModel.setMediaFile(imageFiles[0])
+            }
+        })
     }
 
     private fun handleFailure(failure: Failure) {
@@ -58,6 +78,10 @@ class AddProductActivity : BaseActivity() {
             }
             finish()
         }
+    }
+
+    private fun openChooser(event: Event<Boolean>?) {
+        easyImage.openGallery(this)
     }
 
     private fun checkPrice(price: String) {

@@ -4,7 +4,10 @@ import com.ferdyrodriguez.data.dataSource.RemoteDataSource
 import com.ferdyrodriguez.data.models.ApiResponse
 import com.ferdyrodriguez.data.models.ErrorResponse
 import com.ferdyrodriguez.data.models.ModelMapper
-import com.ferdyrodriguez.data.models.dto.*
+import com.ferdyrodriguez.data.models.dto.AuthUserDto
+import com.ferdyrodriguez.data.models.dto.RefreshTokenDto
+import com.ferdyrodriguez.data.models.dto.RegisterUserDto
+import com.ferdyrodriguez.data.models.dto.TokenDto
 import com.ferdyrodriguez.domain.exceptions.Failure
 import com.ferdyrodriguez.domain.exceptions.Failure.ServerError
 import com.ferdyrodriguez.domain.fp.Either
@@ -14,7 +17,11 @@ import com.ferdyrodriguez.domain.models.AuthUser
 import com.ferdyrodriguez.domain.models.Product
 import com.ferdyrodriguez.domain.models.RegisterUser
 import com.squareup.moshi.Moshi
+import okhttp3.MediaType
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.Call
+import java.io.File
 
 class RemoteDataSourceImpl constructor(private val service: ApiService,
                                        private val mapper: ModelMapper) : RemoteDataSource {
@@ -40,9 +47,16 @@ class RemoteDataSourceImpl constructor(private val service: ApiService,
         return request(call, {mapper.AuthUserToDomain(it) }, mapper.emptyAuthUser())
     }
 
-    override fun addProduct(title: String, description: String?, price: Int): Either<Failure, Product> {
-        val productToAdd = ProductDto(title, description, price)
-        val call = service.addProduct(productToAdd)
+    override fun addProduct(title: String, description: String?, price: Int, mediaFiles: File):
+            Either<Failure, Product> {
+        val requestBodyTitle = RequestBody.create(MediaType.parse("multipart/form"), title)
+        val requestBodyDesc = RequestBody.create(MediaType.parse("multipart/form"), description ?: "")
+        val requestBodyprice = RequestBody.create(MediaType.parse("multipart/form"), price.toString())
+        val requestPartImage = RequestBody.create(MediaType.parse("multipart/form"), mediaFiles)
+
+        val imagePart: MultipartBody.Part = MultipartBody.Part.createFormData("image", mediaFiles.name, requestPartImage)
+
+        val call = service.addProduct(requestBodyTitle, requestBodyDesc, requestBodyprice, imagePart)
         return request(call,{ mapper.productToDomain(it) }, mapper.emptyProduct())
     }
 

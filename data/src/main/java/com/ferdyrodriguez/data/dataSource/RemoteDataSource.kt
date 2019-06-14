@@ -5,6 +5,7 @@ import com.ferdyrodriguez.domain.fp.Either
 import com.ferdyrodriguez.domain.models.AuthUser
 import com.ferdyrodriguez.domain.models.Product
 import com.ferdyrodriguez.domain.models.RegisterUser
+import java.io.File
 
 interface RemoteDataSource {
 
@@ -12,5 +13,5 @@ interface RemoteDataSource {
     fun logInUser(email: String, password: String): Either<Failure, AuthUser>
     fun verifyToken(token: String): Either<Failure, Map<String, String>>
     fun refreshToken(token: String): Either<Failure, AuthUser>
-    fun addProduct(title: String, description: String?, price: Int): Either<Failure, Product>
+    fun addProduct(title: String, description: String?, price: Int, mediaFile: File): Either<Failure, Product>
 }

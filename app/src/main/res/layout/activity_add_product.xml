@@ -5,6 +5,8 @@
 
     <data>
 
+        <import type="android.view.View"/>
+
         <variable
                 name="viewModel"
                 type="com.ferdyrodriguez.loquiero.usecases.addproduct.AddProductViewModel"/>
@@ -83,6 +85,8 @@
                         android:layout_marginStart="32dp"
                         android:layout_marginEnd="32dp"
                         android:background="@drawable/photo_border"
+                        android:onClick="@{ () -> viewModel.addPhoto() }"
+                        android:visibility="@{ viewModel.isPhotoSelected  ? View.INVISIBLE : View.VISIBLE }"
                         app:layout_constraintTop_toBottomOf="@id/productHeader"
                         app:layout_constraintStart_toEndOf="@id/inner_start_guideline"
                         app:layout_constraintEnd_toStartOf="@id/inner_end_guideline"/>
@@ -93,6 +97,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/photo_message"
                         android:gravity="center_horizontal"
+                        android:visibility="@{ viewModel.isPhotoSelected  ? View.GONE : View.VISIBLE }"
                         app:layout_constraintTop_toTopOf="@id/photoBorder"
                         app:layout_constraintStart_toStartOf="@id/photoBorder"
                         app:layout_constraintEnd_toEndOf="@id/photoBorder"
@@ -103,6 +108,8 @@
                         android:layout_width="0dp"
                         android:layout_height="150dp"
                         android:scaleType="centerCrop"
+                        android:onClick="@{ () -> viewModel.addPhoto() }"
+                        app:load_image="@{ viewModel.photo }"
                         app:layout_constraintTop_toTopOf="@id/photoBorder"
                         app:layout_constraintStart_toStartOf="@id/photoBorder"
                         app:layout_constraintEnd_toEndOf="@id/photoBorder"
@@ -119,7 +126,7 @@
                         android:hint="@string/title"
                         app:counterEnabled="true"
                         app:counterMaxLength="40"
-                        app:layout_constraintTop_toBottomOf="@+id/productPhoto"
+                        app:layout_constraintTop_toBottomOf="@+id/photoBorder"
                         app:layout_constraintStart_toEndOf="@id/inner_start_guideline"
                         app:layout_constraintEnd_toStartOf="@id/inner_end_guideline">
 

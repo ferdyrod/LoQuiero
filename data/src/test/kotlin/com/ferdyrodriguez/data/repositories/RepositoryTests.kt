@@ -111,7 +111,12 @@ class RepositoryTests : AutoCloseKoinTest() {
         loadKoinModules(modules)
         given { remoteDataSource.addProduct(emptyProduct.title, emptyProduct.description, emptyProduct.price) }.willReturn(emptyProductEither)
 
-        val product = repository.addProduct(emptyProduct.title, emptyProduct.description, emptyProduct.price)
+        val product = repository.addProduct(
+            emptyProduct.title,
+            emptyProduct.description,
+            emptyProduct.price,
+            params.mediaFile
+        )
 
         verify(remoteDataSource).addProduct(emptyProduct.title, emptyProduct.description, emptyProduct.price)
         verifyNoMoreInteractions(remoteDataSource)
@@ -124,7 +129,12 @@ class RepositoryTests : AutoCloseKoinTest() {
         loadKoinModules(modules)
         given { remoteDataSource.addProduct(emptyProduct.title, emptyProduct.description, emptyProduct.price) }.willReturn(Either.Left(Failure.ServerError()))
 
-        val product = repository.addProduct(emptyProduct.title, emptyProduct.description, emptyProduct.price)
+        val product = repository.addProduct(
+            emptyProduct.title,
+            emptyProduct.description,
+            emptyProduct.price,
+            params.mediaFile
+        )
 
         verify(remoteDataSource).addProduct(emptyProduct.title, emptyProduct.description, emptyProduct.price)
         verifyNoMoreInteractions(remoteDataSource)
