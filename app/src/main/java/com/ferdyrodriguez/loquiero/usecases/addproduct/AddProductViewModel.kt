@@ -7,14 +7,14 @@ import com.ferdyrodriguez.domain.usecases.AddProductUseCase
 import com.ferdyrodriguez.loquiero.base.BaseViewModel
 import com.ferdyrodriguez.loquiero.utils.Event
 import org.koin.ext.isInt
-import pl.aprilapps.easyphotopicker.MediaFile
+import java.io.File
 
 class AddProductViewModel(private val useCase: AddProductUseCase) : BaseViewModel() {
 
     var title: MutableLiveData<String> = MutableLiveData()
     var description: MutableLiveData<String> = MutableLiveData()
     var price: MutableLiveData<String> = MutableLiveData()
-    var photo: MutableLiveData<MediaFile> = MutableLiveData()
+    var photo: MutableLiveData<File> = MutableLiveData()
     var isPhotoSelected: MutableLiveData<Boolean> = MutableLiveData()
 
 
@@ -40,7 +40,7 @@ class AddProductViewModel(private val useCase: AddProductUseCase) : BaseViewMode
 
     fun addProduct() {
         if (formattedPrice >= 0)
-            useCase(AddProductUseCase.Params(title.value!!, description.value, formattedPrice, photo.value!!.file)) {
+            useCase(AddProductUseCase.Params(title.value!!, description.value, formattedPrice, photo.value!!)) {
                 it.either(::handleFailure, ::handleAddedProduct)
             }
     }
@@ -71,8 +71,8 @@ class AddProductViewModel(private val useCase: AddProductUseCase) : BaseViewMode
         isFormValid()
     }
 
-    fun setMediaFile(mediaFile: MediaFile){
-        photo.value = mediaFile
+    fun setMediaFile(file: File){
+        photo.postValue(file)
         isPhotoSelected.value = true
         isFormValid()
     }

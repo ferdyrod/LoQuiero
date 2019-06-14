@@ -23,8 +23,10 @@ import okhttp3.RequestBody
 import retrofit2.Call
 import java.io.File
 
-class RemoteDataSourceImpl constructor(private val service: ApiService,
-                                       private val mapper: ModelMapper) : RemoteDataSource {
+class RemoteDataSourceImpl constructor(
+    private val service: ApiService,
+    private val mapper: ModelMapper
+) : RemoteDataSource {
 
 
     override fun registerUser(email: String, password: String): Either<Failure, RegisterUser> {
@@ -44,20 +46,27 @@ class RemoteDataSourceImpl constructor(private val service: ApiService,
 
     override fun logInUser(email: String, password: String): Either<Failure, AuthUser> {
         val call = service.logInUser(AuthUserDto(email, password))
-        return request(call, {mapper.AuthUserToDomain(it) }, mapper.emptyAuthUser())
+        return request(call, { mapper.AuthUserToDomain(it) }, mapper.emptyAuthUser())
     }
 
-    override fun addProduct(title: String, description: String?, price: Int, mediaFiles: File):
+    override fun addProduct(title: String, description: String?, price: Int, mediaFile: File):
             Either<Failure, Product> {
+
         val requestBodyTitle = RequestBody.create(MediaType.parse("multipart/form"), title)
         val requestBodyDesc = RequestBody.create(MediaType.parse("multipart/form"), description ?: "")
         val requestBodyprice = RequestBody.create(MediaType.parse("multipart/form"), price.toString())
-        val requestPartImage = RequestBody.create(MediaType.parse("multipart/form"), mediaFiles)
+        val requestPartImage = RequestBody.create(MediaType.parse("multipart/form"), mediaFile)
 
-        val imagePart: MultipartBody.Part = MultipartBody.Part.createFormData("image", mediaFiles.name, requestPartImage)
+        val imagePart: MultipartBody.Part =
+            MultipartBody.Part.createFormData("image", mediaFile.name, requestPartImage)
 
         val call = service.addProduct(requestBodyTitle, requestBodyDesc, requestBodyprice, imagePart)
-        return request(call,{ mapper.productToDomain(it) }, mapper.emptyProduct())
+        return request(call, { mapper.productToDomain(it) }, mapper.emptyProduct())
+    }
+
+    override fun getProducts(): Either<Failure, List<Product>> {
+        val call = service.getProducts()
+        return request(call, { entity -> entity.map { mapper.productToDomain(it) } }, emptyList())
     }
 
     private fun <T, R> request(call: Call<ApiResponse<T>>, transform: (T) -> R, default: T): Either<Failure, R> {

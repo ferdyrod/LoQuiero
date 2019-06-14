@@ -14,7 +14,12 @@ import com.ferdyrodriguez.loquiero.base.BaseActivity
 import com.ferdyrodriguez.loquiero.databinding.ActivityAddProductBinding
 import com.ferdyrodriguez.loquiero.extensions.toast
 import com.ferdyrodriguez.loquiero.utils.Event
+import id.zelory.compressor.Compressor
 import kotlinx.android.synthetic.main.toolbar.view.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.async
+import kotlinx.coroutines.withContext
 import org.koin.androidx.scope.currentScope
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import pl.aprilapps.easyphotopicker.DefaultCallback
@@ -61,8 +66,14 @@ class AddProductActivity : BaseActivity() {
         super.onActivityResult(requestCode, resultCode, data)
         easyImage.handleActivityResult(requestCode, resultCode, data, this, object: DefaultCallback(){
             override fun onMediaFilesPicked(imageFiles: Array<MediaFile>, source: MediaSource) {
-                if(imageFiles.isNotEmpty())
-                    viewModel.setMediaFile(imageFiles[0])
+                if(imageFiles.isNotEmpty()) {
+                    GlobalScope.async {
+                        val file = withContext(Dispatchers.Main) {
+                            Compressor(this@AddProductActivity).compressToFile(imageFiles[0].file)
+                        }
+                        viewModel.setMediaFile(file)
+                    }
+                }
             }
         })
     }

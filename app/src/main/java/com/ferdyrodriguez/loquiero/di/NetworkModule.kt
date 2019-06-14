@@ -14,7 +14,7 @@ import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import java.net.HttpURLConnection
-
+import java.util.concurrent.TimeUnit
 
 
 val networkModule: Module = module {
@@ -65,7 +65,7 @@ val networkModule: Module = module {
         client.addInterceptor(headerLogInterceptor)
         client.addInterceptor(bodyLogInterceptor)
         client.authenticator(authenticator)
-
+        client.writeTimeout(20, TimeUnit.SECONDS)
         client.build() as OkHttpClient
     }
 

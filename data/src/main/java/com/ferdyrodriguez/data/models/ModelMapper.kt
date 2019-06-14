@@ -26,6 +26,7 @@ class ModelMapper {
         entity.status,
         entity.active,
         entity.price,
+        entity.image,
         entity.created,
         entity.updated,
         if(entity.transaction != null) transactionToDomain(entity.transaction) else null
@@ -34,7 +35,7 @@ class ModelMapper {
 
     fun emptyRegisterUsed(): RegisterUserEntity = RegisterUserEntity(0, "")
     fun emptyAuthUser(): AuthUserEntity = AuthUserEntity("", "")
-    fun emptyProduct(): ProductEntity = ProductEntity(0,0, "", "", "", "", false, 100, "", "", null)
+    fun emptyProduct(): ProductEntity = ProductEntity(0,0, "", "", "", "", false, 100, "", "", "", null)
 
     private fun transactionToDomain(entity: TransactionEntity) : Transaction = Transaction(
         entity.buyer,
