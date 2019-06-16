@@ -23,7 +23,10 @@
     <string name="delete">Eliminar</string>
     <string name="confirm_delete_item_title">¿Estas seguro?</string>
     <string name="confirm_delete_item_message">Estas seguro que deseas eliminar este producto?</string>
-    <string name="cancel">Cancel</string>
-    <string name="accept">Accept</string>
+    <string name="cancel">Cancelar</string>
+    <string name="accept">Aceptar</string>
     <string name="product_deleted">Se ha borrado el producto</string>
+    <string name="image_test">https://picsum.photos/200</string>
+    <string name="profile_picture">Foto de perfil</string>
+    <string name="search">Buscar</string>
 </resources>
