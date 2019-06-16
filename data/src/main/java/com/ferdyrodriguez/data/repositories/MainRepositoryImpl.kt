@@ -49,6 +49,9 @@ class MainRepositoryImpl constructor(private val remoteDataSource: RemoteDataSou
     override fun addProduct(title: String, description: String?, price: Int, mediaFile: File):
             Either<Failure, Product> = remoteDataSource.addProduct(title, description, price, mediaFile)
 
-    override fun getProducts(): Either<Failure, List<Product>> =
-            remoteDataSource.getProducts()
+    override fun getProducts(ofUser: Boolean): Either<Failure, List<Product>> =
+            remoteDataSource.getProducts(ofUser)
+
+    override fun deleteProduct(id: Int): Either<Failure, Unit> =
+            remoteDataSource.deleteProduct(id)
 }

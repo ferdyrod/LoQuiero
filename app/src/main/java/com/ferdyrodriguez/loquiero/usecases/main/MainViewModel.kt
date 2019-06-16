@@ -5,7 +5,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.ferdyrodriguez.domain.models.Product
 import com.ferdyrodriguez.domain.usecases.GetProductsUseCase
-import com.ferdyrodriguez.domain.usecases.base.UseCase
 import com.ferdyrodriguez.loquiero.base.BaseViewModel
 import com.ferdyrodriguez.loquiero.models.ProductItem
 import com.ferdyrodriguez.loquiero.utils.Event
@@ -25,7 +24,7 @@ class MainViewModel(private val useCase: GetProductsUseCase) : BaseViewModel() {
     }
 
     fun getProducts() {
-        useCase(UseCase.None()) {
+        useCase(GetProductsUseCase.Params()) {
             it.either(::handleFailure, ::handleProducts)
         }
     }

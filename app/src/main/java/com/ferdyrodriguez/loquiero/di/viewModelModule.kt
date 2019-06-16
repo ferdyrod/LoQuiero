@@ -6,6 +6,7 @@ import com.ferdyrodriguez.loquiero.usecases.loginOrRegistration.LoginOrRegistrat
 import com.ferdyrodriguez.loquiero.usecases.main.MainViewModel
 import com.ferdyrodriguez.loquiero.usecases.registration.RegistrationViewModel
 import com.ferdyrodriguez.loquiero.usecases.splash.SplashViewModel
+import com.ferdyrodriguez.loquiero.usecases.userProducts.UserProductViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
@@ -17,4 +18,5 @@ val viewModelModule = module {
     viewModel { LoginViewModel(get()) }
     viewModel { MainViewModel(get()) }
     viewModel { AddProductViewModel(get()) }
+    viewModel { UserProductViewModel(get(), get()) }
 }

@@ -29,18 +29,26 @@ class ApiService(retrofit: Retrofit) : Service {
         apiService.addProduct(product, requestBodyDesc, requestBodyprice, imagePart)
 
     override fun getProducts(): Call<ApiResponse<List<ProductEntity>>> = apiService.getProducts()
+    override fun getUserProducts(): Call<ApiResponse<List<ProductEntity>>> = apiService.getUserProducts()
+    override fun deleteProduct(id: Int): Call<ApiResponse<Any>> = apiService.deleteProduct(id)
 }
 
 
 interface Service {
 
     companion object {
-        private const val REGISTER_USER: String = "user/"
-        private const val AUTH_USER: String = "auth/"
-        private const val RERESH_TOKEN: String = "${AUTH_USER}refresh/"
-        private const val VERIFY_TOKEN: String = "${AUTH_USER}verify/"
-        private const val PRODUCTS: String = "publications/"
-        private const val USER_PRODUCTS: String = "publications/user/"
+
+        private const val AUTH = "auth"
+        private const val USER = "user"
+        private const val PUBLICATIONS = "publications"
+
+        private const val REGISTER_USER: String = "$USER/"
+        private const val AUTH_USER: String = "$AUTH/"
+        private const val RERESH_TOKEN: String = "$AUTH/refresh/"
+        private const val VERIFY_TOKEN: String = "$AUTH/verify/"
+        private const val PRODUCTS: String = "$PUBLICATIONS/"
+        private const val USER_PRODUCTS: String = "$PUBLICATIONS/$USER/"
+        private const val USER_PRODUCTS_ID: String = "$PUBLICATIONS/$USER/{id}/"
 
     }
 
@@ -66,4 +74,10 @@ interface Service {
 
     @GET(PRODUCTS)
     fun getProducts(): Call<ApiResponse<List<ProductEntity>>>
+
+    @GET(USER_PRODUCTS)
+    fun getUserProducts(): Call<ApiResponse<List<ProductEntity>>>
+
+    @HTTP(method = "DELETE", path = USER_PRODUCTS_ID, hasBody = true)
+    fun deleteProduct(@Path("id") id: Int): Call<ApiResponse<Any>>
 }

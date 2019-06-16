@@ -4,8 +4,8 @@
           package="com.ferdyrodriguez.loquiero">
 
     <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.CAMERA"/>
 
     <application
             android:name=".App"
@@ -17,8 +17,6 @@
             android:theme="@style/AppTheme"
             android:usesCleartextTraffic="true"
             tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".usecases.addproduct.AddProductActivity">
-        </activity>
         <activity android:name=".usecases.splash.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -30,6 +28,8 @@
         <activity android:name=".usecases.login.LoginActivity"/>
         <activity android:name=".usecases.registration.RegistrationActivity"/>
         <activity android:name=".usecases.main.MainActivity"/>
+        <activity android:name=".usecases.userProducts.UserProductsActivity"/>
+        <activity android:name=".usecases.addproduct.AddProductActivity"/>
     </application>
 
 </manifest>

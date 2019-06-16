@@ -64,9 +64,14 @@ class RemoteDataSourceImpl constructor(
         return request(call, { mapper.productToDomain(it) }, mapper.emptyProduct())
     }
 
-    override fun getProducts(): Either<Failure, List<Product>> {
-        val call = service.getProducts()
+    override fun getProducts(ofUser: Boolean): Either<Failure, List<Product>> {
+        val call = if (ofUser) service.getUserProducts() else service.getProducts()
         return request(call, { entity -> entity.map { mapper.productToDomain(it) } }, emptyList())
+    }
+
+    override fun deleteProduct(id: Int): Either<Failure, Unit> {
+        val call = service.deleteProduct(id)
+        return request(call, { Unit }, Unit)
     }
 
     private fun <T, R> request(call: Call<ApiResponse<T>>, transform: (T) -> R, default: T): Either<Failure, R> {
