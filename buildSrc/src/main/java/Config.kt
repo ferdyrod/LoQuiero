@@ -18,6 +18,7 @@ object Versions {
     val koinVersion = "2.0.0"
     val easyImageVersion = "3.0.1"
     val compressorVersion = "2.1.0"
+    val circleViewVersion = "3.0.0"
 
     //Testing
     //Unit Testing
@@ -79,6 +80,7 @@ object Libs {
     val glideCompiler = "com.github.bumptech.glide:compiler:${Versions.glideVersion}"
     val easyImage = "com.github.jkwiecien:EasyImage:${Versions.easyImageVersion}"
     val compressor = "id.zelory:compressor:${Versions.compressorVersion}"
+    val circleImage = "de.hdodenhof:circleimageview:${Versions.circleViewVersion}"
 
     val koinCore = "org.koin:koin-core:${Versions.koinVersion}"
     val koinAndroid = "org.koin:koin-android:${Versions.koinVersion}"

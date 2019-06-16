@@ -1,6 +1,7 @@
 package com.ferdyrodriguez.loquiero.usecases.userProducts
 
 import android.os.Bundle
+import android.view.MenuItem
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -11,7 +12,6 @@ import com.ferdyrodriguez.loquiero.databinding.ActivityUserProductsBinding
 import com.ferdyrodriguez.loquiero.extensions.toast
 import com.ferdyrodriguez.loquiero.models.ProductItem
 import com.ferdyrodriguez.loquiero.utils.Event
-import kotlinx.android.synthetic.main.toolbar.view.*
 import org.koin.android.ext.android.inject
 import org.koin.core.parameter.parametersOf
 
@@ -55,6 +55,16 @@ class UserProductsActivity : AppCompatActivity() {
         unregisterForContextMenu(binding.recyclerView)
     }
 
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        return when (item?.itemId) {
+            android.R.id.home -> {
+                onBackPressed()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
     private fun setList(products: List<ProductItem>) {
         adapter.addItems(products)
     }
@@ -76,7 +86,7 @@ class UserProductsActivity : AppCompatActivity() {
 
     private fun deletedProduct(event: Event<Boolean>) {
         event.getContentIfNotHandled()?.let {
-            if(it)
+            if (it)
                 toast(getString(R.string.product_deleted))
         }
     }

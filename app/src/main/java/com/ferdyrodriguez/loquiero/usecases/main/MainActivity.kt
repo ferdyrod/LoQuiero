@@ -3,8 +3,6 @@ package com.ferdyrodriguez.loquiero.usecases.main
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuItem
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
@@ -12,9 +10,9 @@ import com.ferdyrodriguez.loquiero.R
 import com.ferdyrodriguez.loquiero.base.BaseActivity
 import com.ferdyrodriguez.loquiero.databinding.ActivityMainBinding
 import com.ferdyrodriguez.loquiero.extensions.toast
+import com.ferdyrodriguez.loquiero.extensions.visible
 import com.ferdyrodriguez.loquiero.models.ProductItem
 import com.ferdyrodriguez.loquiero.utils.Event
-import kotlinx.android.synthetic.main.toolbar.view.*
 import org.koin.android.ext.android.inject
 
 class MainActivity : BaseActivity() {
@@ -45,6 +43,14 @@ class MainActivity : BaseActivity() {
 
         viewModel.navigateToAdd.observe(this, Observer(this::navigateToAddProduct))
         viewModel.products.observe(this, Observer(::setList))
+
+        binding.baseToolbar.profilePictureLayout.visible()
+        binding.baseToolbar.profilePicture.setOnClickListener{
+            toast("Click Profile Picture")
+        }
+        binding.baseToolbar.searchLayout.setOnClickListener {
+            navigator.toUserProducts()
+        }
     }
 
     override fun onResume() {
@@ -59,7 +65,7 @@ class MainActivity : BaseActivity() {
         }
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+    /*override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.main_menu, menu)
         return true
     }
@@ -69,8 +75,7 @@ class MainActivity : BaseActivity() {
             R.id.user_products -> { navigator.toUserProducts(); true}
             else -> { return super.onOptionsItemSelected(item) }
         }
-
-    }
+    }*/
 
     private fun navigateToAddProduct(event: Event<Boolean>){
         event.getContentIfNotHandled()?.let {

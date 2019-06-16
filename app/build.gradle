@@ -67,6 +67,7 @@ dependencies {
     implementation Libs.okhttpInterceptor
     implementation Libs.easyImage
     implementation Libs.compressor
+    implementation Libs.circleImage
 
 
     testImplementation TestLibs.junit
