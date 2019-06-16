@@ -28,7 +28,7 @@ class ApiService(retrofit: Retrofit) : Service {
                             imagePart: MultipartBody.Part) =
         apiService.addProduct(product, requestBodyDesc, requestBodyprice, imagePart)
 
-    override fun getProducts(): Call<ApiResponse<List<ProductEntity>>> = apiService.getProducts()
+    override fun getProducts(search: String?): Call<ApiResponse<List<ProductEntity>>> = apiService.getProducts(search)
     override fun getUserProducts(): Call<ApiResponse<List<ProductEntity>>> = apiService.getUserProducts()
     override fun deleteProduct(id: Int): Call<ApiResponse<Any>> = apiService.deleteProduct(id)
 }
@@ -46,7 +46,7 @@ interface Service {
         private const val AUTH_USER: String = "$AUTH/"
         private const val RERESH_TOKEN: String = "$AUTH/refresh/"
         private const val VERIFY_TOKEN: String = "$AUTH/verify/"
-        private const val PRODUCTS: String = "$PUBLICATIONS/"
+        private const val PRODUCTS: String = "$PUBLICATIONS"
         private const val USER_PRODUCTS: String = "$PUBLICATIONS/$USER/"
         private const val USER_PRODUCTS_ID: String = "$PUBLICATIONS/$USER/{id}/"
 
@@ -73,11 +73,11 @@ interface Service {
         @Part imagePart: MultipartBody.Part): Call<ApiResponse<ProductEntity>>
 
     @GET(PRODUCTS)
-    fun getProducts(): Call<ApiResponse<List<ProductEntity>>>
+    fun getProducts(@Query("search") search: String?): Call<ApiResponse<List<ProductEntity>>>
 
     @GET(USER_PRODUCTS)
     fun getUserProducts(): Call<ApiResponse<List<ProductEntity>>>
 
-    @HTTP(method = "DELETE", path = USER_PRODUCTS_ID, hasBody = true)
+    @DELETE(USER_PRODUCTS_ID)
     fun deleteProduct(@Path("id") id: Int): Call<ApiResponse<Any>>
 }

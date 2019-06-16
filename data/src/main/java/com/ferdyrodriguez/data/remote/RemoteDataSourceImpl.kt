@@ -1,5 +1,6 @@
 package com.ferdyrodriguez.data.remote
 
+import android.view.PixelCopy.request
 import com.ferdyrodriguez.data.dataSource.RemoteDataSource
 import com.ferdyrodriguez.data.models.ApiResponse
 import com.ferdyrodriguez.data.models.ErrorResponse
@@ -64,8 +65,11 @@ class RemoteDataSourceImpl constructor(
         return request(call, { mapper.productToDomain(it) }, mapper.emptyProduct())
     }
 
-    override fun getProducts(ofUser: Boolean): Either<Failure, List<Product>> {
-        val call = if (ofUser) service.getUserProducts() else service.getProducts()
+    override fun getProducts(search: String?, ofUser: Boolean): Either<Failure, List<Product>> {
+        val call = when (ofUser) {
+            true -> service.getUserProducts()
+            else -> service.getProducts(search)
+        }
         return request(call, { entity -> entity.map { mapper.productToDomain(it) } }, emptyList())
     }
 

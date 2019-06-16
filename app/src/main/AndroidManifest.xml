@@ -30,6 +30,7 @@
         <activity android:name=".usecases.main.MainActivity"/>
         <activity android:name=".usecases.userProducts.UserProductsActivity"/>
         <activity android:name=".usecases.addproduct.AddProductActivity"/>
+        <activity android:name=".usecases.search.SearchActivity"/>
     </application>
 
 </manifest>

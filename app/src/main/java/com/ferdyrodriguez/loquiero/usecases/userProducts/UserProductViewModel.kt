@@ -25,7 +25,7 @@ class UserProductViewModel(private val useCase: GetProductsUseCase,
         get() = _deletedSuccessfully
 
     fun getProducts() {
-        useCase(GetProductsUseCase.Params(true)) {
+        useCase(GetProductsUseCase.Params(ofUser = true)) {
             it.either(::handleFailure, ::handleProducts)
         }
     }
