@@ -15,7 +15,7 @@ interface MainRepository {
     fun registerUser(email: String, password: String): Either<Failure, RegisterUser>
     fun logInUser(email: String, password: String): Either<Failure, AuthUser>
     fun addProduct(title: String, description: String?, price: Int, mediaFile: File): Either<Failure, Product>
-    fun getProducts(ofUser: Boolean): Either<Failure, List<Product>>
+    fun getProducts(search: String?, ofUser: Boolean): Either<Failure, List<Product>>
     fun deleteProduct(id: Int): Either<Failure, Unit>
 
 }

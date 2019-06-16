@@ -46,10 +46,11 @@ class MainActivity : BaseActivity() {
 
         binding.baseToolbar.profilePictureLayout.visible()
         binding.baseToolbar.profilePicture.setOnClickListener{
+            navigator.toUserProducts()
             toast("Click Profile Picture")
         }
         binding.baseToolbar.searchLayout.setOnClickListener {
-            navigator.toUserProducts()
+            navigator.toSearch()
         }
     }
 
@@ -64,18 +65,6 @@ class MainActivity : BaseActivity() {
             toast("debo de llamar al endpoint para traer todos los productos")
         }
     }
-
-    /*override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.main_menu, menu)
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        return when(item?.itemId) {
-            R.id.user_products -> { navigator.toUserProducts(); true}
-            else -> { return super.onOptionsItemSelected(item) }
-        }
-    }*/
 
     private fun navigateToAddProduct(event: Event<Boolean>){
         event.getContentIfNotHandled()?.let {

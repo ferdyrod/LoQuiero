@@ -8,8 +8,8 @@ import com.ferdyrodriguez.domain.usecases.base.UseCase
 
 class GetProductsUseCase(private val repository: MainRepository): UseCase<List<Product>, GetProductsUseCase.Params>() {
 
-    override suspend fun run(params: Params): Either<Failure, List<Product>> = repository.getProducts(params.ofUser)
+    override suspend fun run(params: Params): Either<Failure, List<Product>> = repository.getProducts(params.search, params.ofUser)
 
-    data class Params(val ofUser: Boolean = false)
+    data class Params(var search: String? = null, val ofUser: Boolean = false)
 
 }

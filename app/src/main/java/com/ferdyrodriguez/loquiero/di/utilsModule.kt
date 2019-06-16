@@ -2,6 +2,8 @@ package com.ferdyrodriguez.loquiero.di
 
 import com.ferdyrodriguez.loquiero.usecases.addproduct.AddProductActivity
 import com.ferdyrodriguez.loquiero.usecases.main.ProductsAdapter
+import com.ferdyrodriguez.loquiero.usecases.search.SearchProductAdapter
+import com.ferdyrodriguez.loquiero.usecases.search.SearchViewModel
 import com.ferdyrodriguez.loquiero.usecases.userProducts.UserProductViewModel
 import com.ferdyrodriguez.loquiero.usecases.userProducts.UserProductsAdapter
 import org.koin.core.qualifier.named
@@ -24,4 +26,5 @@ val utilsModule = module {
 
     factory { ProductsAdapter(get()) }
     factory { (viewModel: UserProductViewModel) -> UserProductsAdapter(viewModel) }
+    factory { (viewModel: SearchViewModel) -> SearchProductAdapter(viewModel) }
 }
