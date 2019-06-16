@@ -36,4 +36,9 @@ abstract class BaseAdapter : RecyclerView.Adapter<BaseViewHolder>() {
             notifyDataSetChanged()
         }
     }
+
+    fun removeItem(position: Int) {
+        items.removeAt(position)
+        notifyItemRemoved(position)
+    }
 }

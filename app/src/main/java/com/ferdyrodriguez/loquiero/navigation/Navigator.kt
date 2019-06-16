@@ -8,6 +8,8 @@ import com.ferdyrodriguez.loquiero.usecases.login.LoginActivity
 import com.ferdyrodriguez.loquiero.usecases.loginOrRegistration.LoginOrRegistrationActivity
 import com.ferdyrodriguez.loquiero.usecases.main.MainActivity
 import com.ferdyrodriguez.loquiero.usecases.registration.RegistrationActivity
+import com.ferdyrodriguez.loquiero.usecases.userProducts.UserProductsActivity
+
 class Navigator constructor(private val context: Context) {
 
     fun toLoginOrRegistration() {
@@ -40,6 +42,8 @@ class Navigator constructor(private val context: Context) {
     fun toAddProduct(activity: Activity, requestCode: Int) {
         activity.startActivityForResult(Intent(activity, AddProductActivity::class.java), requestCode)
     }
+
+    fun toUserProducts() = context.startActivity(Intent(context, UserProductsActivity::class.java))
 
     fun toProfileRegistration() {
 

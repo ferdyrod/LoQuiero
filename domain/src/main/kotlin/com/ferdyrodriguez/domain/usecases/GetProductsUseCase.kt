@@ -6,8 +6,10 @@ import com.ferdyrodriguez.domain.fp.Either
 import com.ferdyrodriguez.domain.models.Product
 import com.ferdyrodriguez.domain.usecases.base.UseCase
 
-class GetProductsUseCase(val repository: MainRepository): UseCase<List<Product>, UseCase.None>() {
+class GetProductsUseCase(private val repository: MainRepository): UseCase<List<Product>, GetProductsUseCase.Params>() {
 
-    override suspend fun run(params: None): Either<Failure, List<Product>> = repository.getProducts()
+    override suspend fun run(params: Params): Either<Failure, List<Product>> = repository.getProducts(params.ofUser)
+
+    data class Params(val ofUser: Boolean = false)
 
 }

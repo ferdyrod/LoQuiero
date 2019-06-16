@@ -19,4 +19,11 @@
     <string name="price">Precio</string>
     <string name="add_product">Añadir producto</string>
     <string name="product_added">Se agrego el producto</string>
+    <string name="user_products">Mis productos</string>
+    <string name="delete">Eliminar</string>
+    <string name="confirm_delete_item_title">¿Estas seguro?</string>
+    <string name="confirm_delete_item_message">Estas seguro que deseas eliminar este producto?</string>
+    <string name="cancel">Cancel</string>
+    <string name="accept">Accept</string>
+    <string name="product_deleted">Se ha borrado el producto</string>
 </resources>
