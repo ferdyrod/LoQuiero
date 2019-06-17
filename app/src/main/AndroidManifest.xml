@@ -31,6 +31,7 @@
         <activity android:name=".usecases.userProducts.UserProductsActivity"/>
         <activity android:name=".usecases.addproduct.AddProductActivity"/>
         <activity android:name=".usecases.search.SearchActivity"/>
+        <activity android:name=".usecases.userProfile.UserProfileActivity"/>
     </application>
 
 </manifest>

@@ -23,4 +23,5 @@ val repositoryModule: Module = module {
     factory { AddProductUseCase(get()) }
     factory { GetProductsUseCase(get()) }
     factory { DeleteProductUseCase(get()) }
+    factory { SaveUserProfileUseCase(get()) }
 }

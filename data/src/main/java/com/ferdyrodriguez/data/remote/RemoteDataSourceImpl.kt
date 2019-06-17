@@ -1,14 +1,10 @@
 package com.ferdyrodriguez.data.remote
 
-import android.view.PixelCopy.request
 import com.ferdyrodriguez.data.dataSource.RemoteDataSource
 import com.ferdyrodriguez.data.models.ApiResponse
 import com.ferdyrodriguez.data.models.ErrorResponse
 import com.ferdyrodriguez.data.models.ModelMapper
-import com.ferdyrodriguez.data.models.dto.AuthUserDto
-import com.ferdyrodriguez.data.models.dto.RefreshTokenDto
-import com.ferdyrodriguez.data.models.dto.RegisterUserDto
-import com.ferdyrodriguez.data.models.dto.TokenDto
+import com.ferdyrodriguez.data.models.dto.*
 import com.ferdyrodriguez.domain.exceptions.Failure
 import com.ferdyrodriguez.domain.exceptions.Failure.ServerError
 import com.ferdyrodriguez.domain.fp.Either
@@ -17,6 +13,7 @@ import com.ferdyrodriguez.domain.fp.Either.Right
 import com.ferdyrodriguez.domain.models.AuthUser
 import com.ferdyrodriguez.domain.models.Product
 import com.ferdyrodriguez.domain.models.RegisterUser
+import com.ferdyrodriguez.domain.models.UserProfile
 import com.squareup.moshi.Moshi
 import okhttp3.MediaType
 import okhttp3.MultipartBody
@@ -55,13 +52,13 @@ class RemoteDataSourceImpl constructor(
 
         val requestBodyTitle = RequestBody.create(MediaType.parse("multipart/form"), title)
         val requestBodyDesc = RequestBody.create(MediaType.parse("multipart/form"), description ?: "")
-        val requestBodyprice = RequestBody.create(MediaType.parse("multipart/form"), price.toString())
+        val requestBodyPrice = RequestBody.create(MediaType.parse("multipart/form"), price.toString())
         val requestPartImage = RequestBody.create(MediaType.parse("multipart/form"), mediaFile)
 
         val imagePart: MultipartBody.Part =
             MultipartBody.Part.createFormData("image", mediaFile.name, requestPartImage)
 
-        val call = service.addProduct(requestBodyTitle, requestBodyDesc, requestBodyprice, imagePart)
+        val call = service.addProduct(requestBodyTitle, requestBodyDesc, requestBodyPrice, imagePart)
         return request(call, { mapper.productToDomain(it) }, mapper.emptyProduct())
     }
 
@@ -76,6 +73,26 @@ class RemoteDataSourceImpl constructor(
     override fun deleteProduct(id: Int): Either<Failure, Unit> {
         val call = service.deleteProduct(id)
         return request(call, { Unit }, Unit)
+    }
+
+    override fun saveUserProfile(id: Int, firstName: String?, lastName: String?, postalCode: Int?, phone: String?, photo: File?):
+            Either<Failure, UserProfile> {
+        val call = when (photo != null) {
+            true -> {
+                val requestFirstName = RequestBody.create(MediaType.parse("multipart/form"), firstName ?: "")
+                val requestLastName = RequestBody.create(MediaType.parse("multipart/form"), lastName ?: "")
+                val requestPostalCode = RequestBody.create(MediaType.parse("multipart/form"), postalCode?.toString() ?: "")
+                val requestBodyPhone = RequestBody.create(MediaType.parse("multipart/form"), phone ?: "")
+                val requestPartImage = RequestBody.create(MediaType.parse("multipart/form"), photo)
+
+                val imagePart: MultipartBody.Part =
+                    MultipartBody.Part.createFormData("image", photo.name, requestPartImage)
+
+                service.saveUserProfileWithPhoto(id, requestFirstName, requestLastName, requestPostalCode, requestBodyPhone, imagePart)
+            }
+            false -> service.saveUserProfile(id, UserProfileDto(firstName, lastName, postalCode, photo))
+        }
+        return request(call, { mapper.userProfileToDomain(it) }, mapper.emptyUserProfile())
     }
 
     private fun <T, R> request(call: Call<ApiResponse<T>>, transform: (T) -> R, default: T): Either<Failure, R> {

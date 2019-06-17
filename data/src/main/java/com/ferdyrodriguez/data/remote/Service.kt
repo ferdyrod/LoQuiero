@@ -1,13 +1,7 @@
 package com.ferdyrodriguez.data.remote
 
-import com.ferdyrodriguez.data.models.ApiResponse
-import com.ferdyrodriguez.data.models.AuthUserEntity
-import com.ferdyrodriguez.data.models.ProductEntity
-import com.ferdyrodriguez.data.models.RegisterUserEntity
-import com.ferdyrodriguez.data.models.dto.AuthUserDto
-import com.ferdyrodriguez.data.models.dto.RefreshTokenDto
-import com.ferdyrodriguez.data.models.dto.RegisterUserDto
-import com.ferdyrodriguez.data.models.dto.TokenDto
+import com.ferdyrodriguez.data.models.*
+import com.ferdyrodriguez.data.models.dto.*
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Call
@@ -19,18 +13,34 @@ class ApiService(retrofit: Retrofit) : Service {
     private val apiService by lazy { retrofit.create(Service::class.java) }
 
     override fun logInUser(user: AuthUserDto) = apiService.logInUser(user)
-    override fun refreshToken(token: RefreshTokenDto): Call<ApiResponse<AuthUserEntity>> = apiService.refreshToken(token)
+    override fun refreshToken(token: RefreshTokenDto): Call<ApiResponse<AuthUserEntity>> =
+        apiService.refreshToken(token)
+
     override fun verifyToken(token: TokenDto) = apiService.verifyToken(token)
     override fun registerUser(user: RegisterUserDto) = apiService.registerUser(user)
-    override fun addProduct(product: RequestBody,
-                            requestBodyDesc: RequestBody,
-                            requestBodyprice: RequestBody,
-                            imagePart: MultipartBody.Part) =
-        apiService.addProduct(product, requestBodyDesc, requestBodyprice, imagePart)
+    override fun addProduct(
+        title: RequestBody,
+        description: RequestBody,
+        price: RequestBody,
+        imagePart: MultipartBody.Part
+    ) =
+        apiService.addProduct(title, description, price, imagePart)
 
     override fun getProducts(search: String?): Call<ApiResponse<List<ProductEntity>>> = apiService.getProducts(search)
     override fun getUserProducts(): Call<ApiResponse<List<ProductEntity>>> = apiService.getUserProducts()
     override fun deleteProduct(id: Int): Call<ApiResponse<Any>> = apiService.deleteProduct(id)
+    override fun saveUserProfileWithPhoto(
+        id: Int,
+        firstName: RequestBody,
+        lastName: RequestBody,
+        postalCode: RequestBody,
+        phone: RequestBody,
+        imagePart: MultipartBody.Part
+    ): Call<ApiResponse<UserProfileEntity>> =
+        apiService.saveUserProfileWithPhoto(id, firstName, lastName, postalCode, phone, imagePart)
+
+    override fun saveUserProfile(id: Int, userProfile: UserProfileDto): Call<ApiResponse<UserProfileEntity>> =
+        apiService.saveUserProfile(id, userProfile)
 }
 
 
@@ -49,6 +59,7 @@ interface Service {
         private const val PRODUCTS: String = "$PUBLICATIONS"
         private const val USER_PRODUCTS: String = "$PUBLICATIONS/$USER/"
         private const val USER_PRODUCTS_ID: String = "$PUBLICATIONS/$USER/{id}/"
+        private const val USER_PROFILE_ID: String = "$USER/{id}/"
 
     }
 
@@ -70,7 +81,8 @@ interface Service {
         @Part("title") title: RequestBody,
         @Part("description") description: RequestBody,
         @Part("price") price: RequestBody,
-        @Part imagePart: MultipartBody.Part): Call<ApiResponse<ProductEntity>>
+        @Part imagePart: MultipartBody.Part
+    ): Call<ApiResponse<ProductEntity>>
 
     @GET(PRODUCTS)
     fun getProducts(@Query("search") search: String?): Call<ApiResponse<List<ProductEntity>>>
@@ -80,4 +92,19 @@ interface Service {
 
     @DELETE(USER_PRODUCTS_ID)
     fun deleteProduct(@Path("id") id: Int): Call<ApiResponse<Any>>
+
+    @Multipart
+    @PATCH(USER_PROFILE_ID)
+    fun saveUserProfileWithPhoto(
+        @Path("id") id: Int,
+        @Part("first_name") firstName: RequestBody,
+        @Part("last_name") lastName: RequestBody,
+        @Part("postal_code") postalCode: RequestBody,
+        @Part("phone") phone: RequestBody,
+        @Part imagePart: MultipartBody.Part
+    ): Call<ApiResponse<UserProfileEntity>>
+
+    @PATCH(USER_PROFILE_ID)
+    fun saveUserProfile(@Path("id") id: Int,
+                        @Body userProfile: UserProfileDto): Call<ApiResponse<UserProfileEntity>>
 }

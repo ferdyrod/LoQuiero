@@ -46,8 +46,7 @@ class MainActivity : BaseActivity() {
 
         binding.baseToolbar.profilePictureLayout.visible()
         binding.baseToolbar.profilePicture.setOnClickListener{
-            navigator.toUserProducts()
-            toast("Click Profile Picture")
+            navigator.toUserProfile()
         }
         binding.baseToolbar.searchLayout.setOnClickListener {
             navigator.toSearch()

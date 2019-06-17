@@ -8,6 +8,7 @@ import com.ferdyrodriguez.loquiero.usecases.registration.RegistrationViewModel
 import com.ferdyrodriguez.loquiero.usecases.search.SearchViewModel
 import com.ferdyrodriguez.loquiero.usecases.splash.SplashViewModel
 import com.ferdyrodriguez.loquiero.usecases.userProducts.UserProductViewModel
+import com.ferdyrodriguez.loquiero.usecases.userProfile.UserProfileViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
@@ -21,4 +22,5 @@ val viewModelModule = module {
     viewModel { AddProductViewModel(get()) }
     viewModel { UserProductViewModel(get(), get()) }
     viewModel { SearchViewModel(get()) }
+    viewModel { UserProfileViewModel(get(), get()) }
 }

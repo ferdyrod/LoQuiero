@@ -29,4 +29,12 @@
     <string name="image_test">https://picsum.photos/200</string>
     <string name="profile_picture">Foto de perfil</string>
     <string name="search">Buscar</string>
+    <string name="profile">Mi Perfil</string>
+    <string name="first_name">Nombre</string>
+    <string name="last_name">Apellido</string>
+    <string name="postal_code">Código postal</string>
+    <string name="phone_number">Telefóno</string>
+    <string name="save">Guardar</string>
+    <string name="edit">Editar</string>
+    <string name="profile_saved">Datos guardados</string>
 </resources>
