@@ -9,10 +9,13 @@ import com.ferdyrodriguez.domain.fp.flatMap
 import com.ferdyrodriguez.domain.models.AuthUser
 import com.ferdyrodriguez.domain.models.Product
 import com.ferdyrodriguez.domain.models.RegisterUser
+import com.ferdyrodriguez.domain.models.UserProfile
 import java.io.File
 
-class MainRepositoryImpl constructor(private val remoteDataSource: RemoteDataSource,
-                                     private val localDataSource: LocalDataSource): MainRepository {
+class MainRepositoryImpl constructor(
+    private val remoteDataSource: RemoteDataSource,
+    private val localDataSource: LocalDataSource
+) : MainRepository {
 
     override fun getAuthToken(): Either<Failure, String> =
         localDataSource.getAuthToken()
@@ -33,25 +36,40 @@ class MainRepositoryImpl constructor(private val remoteDataSource: RemoteDataSou
 
 
     override fun registerUser(email: String, password: String): Either<Failure, RegisterUser> =
-            remoteDataSource.registerUser(email, password).flatMap {registerUser ->
-                logInUser(email, password).flatMap {
-                    Either.Right(registerUser)
-                }
+        remoteDataSource.registerUser(email, password).flatMap { registerUser ->
+            logInUser(email, password).flatMap {
+                Either.Right(registerUser)
             }
+        }
 
     override fun logInUser(email: String, password: String): Either<Failure, AuthUser> =
-            remoteDataSource.logInUser(email, password).flatMap { authUser ->
-                localDataSource.setAuthUser(authUser).flatMap {
-                    Either.Right(authUser)
-                }
+        remoteDataSource.logInUser(email, password).flatMap { authUser ->
+            localDataSource.setAuthUser(authUser).flatMap {
+                Either.Right(authUser)
             }
+        }
 
     override fun addProduct(title: String, description: String?, price: Int, mediaFile: File):
             Either<Failure, Product> = remoteDataSource.addProduct(title, description, price, mediaFile)
 
     override fun getProducts(search: String?, ofUser: Boolean): Either<Failure, List<Product>> =
-            remoteDataSource.getProducts(search, ofUser)
+        remoteDataSource.getProducts(search, ofUser)
 
     override fun deleteProduct(id: Int): Either<Failure, Unit> =
-            remoteDataSource.deleteProduct(id)
+        remoteDataSource.deleteProduct(id)
+
+    override fun saveUserProfile(
+        firstName: String?,
+        lastName: String?,
+        postalCode: Int?,
+        phone: String?,
+        photo: File?
+    ): Either<Failure, UserProfile> =
+        localDataSource.getUserId().flatMap {
+            remoteDataSource.saveUserProfile(it, firstName, lastName, postalCode, phone, photo).flatMap { profile ->
+                localDataSource.saveUserProfile(profile.firstName, profile.lastName, profile.postalCode, profile.phone, profile.photo).flatMap {
+                    Either.Right(profile)
+                }
+            }
+        }
 }

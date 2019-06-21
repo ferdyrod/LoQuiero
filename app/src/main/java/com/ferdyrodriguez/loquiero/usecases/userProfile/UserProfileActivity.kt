@@ -1,9 +1,10 @@
-package com.ferdyrodriguez.loquiero.usecases.addproduct
+package com.ferdyrodriguez.loquiero.usecases.userProfile
 
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.view.Menu
 import android.view.MenuItem
 import androidx.core.app.ActivityCompat
 import androidx.databinding.DataBindingUtil
@@ -11,7 +12,7 @@ import androidx.lifecycle.Observer
 import com.ferdyrodriguez.domain.exceptions.Failure
 import com.ferdyrodriguez.loquiero.R
 import com.ferdyrodriguez.loquiero.base.BaseActivity
-import com.ferdyrodriguez.loquiero.databinding.ActivityAddProductBinding
+import com.ferdyrodriguez.loquiero.databinding.ActivityUserProfileBinding
 import com.ferdyrodriguez.loquiero.extensions.toast
 import com.ferdyrodriguez.loquiero.utils.Event
 import id.zelory.compressor.Compressor
@@ -20,44 +21,39 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
 import kotlinx.coroutines.withContext
 import org.koin.android.ext.android.inject
-import org.koin.androidx.viewmodel.ext.android.viewModel
 import pl.aprilapps.easyphotopicker.DefaultCallback
 import pl.aprilapps.easyphotopicker.EasyImage
 import pl.aprilapps.easyphotopicker.MediaFile
 import pl.aprilapps.easyphotopicker.MediaSource
 
-class AddProductActivity : BaseActivity() {
+class UserProfileActivity : BaseActivity() {
 
-    companion object {
-        const val PERMISSION_REQUEST = 1101
+    companion object{
+        const val PERMISSION_REQUEST = 2101
     }
 
-    private lateinit var binding: ActivityAddProductBinding
+    private lateinit var binding: ActivityUserProfileBinding
 
-    private val viewModel: AddProductViewModel by viewModel()
+    private val viewModel: UserProfileViewModel by inject()
     private val easyImage: EasyImage by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_add_product)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_user_profile)
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
 
         setSupportActionBar(binding.baseToolbar.toolbar)
         supportActionBar.let {
-            binding.baseToolbar.AppBarTitle.text = getString(R.string.add_product)
             it?.setHomeButtonEnabled(true)
             it?.setDisplayHomeAsUpEnabled(true)
             it?.setHomeAsUpIndicator(R.drawable.ic_arrow_back)
         }
 
-
-
-        viewModel.title.observe(this, Observer(::checkTitle))
-        viewModel.price.observe(this, Observer(::checkPrice))
+        viewModel.postalCode.observe(this, Observer(::checkPostalCode))
 
         viewModel.openChooser.observe(this, Observer(::openChooser))
-        viewModel.isProductAdded.observe(this, Observer(::handleNavigation))
+        viewModel.isProfileSaved.observe(this, Observer(::handleProfileSaved))
         viewModel.failure.observe(this, Observer(::handleFailure))
     }
 
@@ -68,7 +64,7 @@ class AddProductActivity : BaseActivity() {
                 if(imageFiles.isNotEmpty()) {
                     GlobalScope.async {
                         val file = withContext(Dispatchers.Main) {
-                            Compressor(this@AddProductActivity).compressToFile(imageFiles[0].file)
+                            Compressor(this@UserProfileActivity).compressToFile(imageFiles[0].file)
                         }
                         viewModel.setMediaFile(file)
                     }
@@ -76,6 +72,7 @@ class AddProductActivity : BaseActivity() {
             }
         })
     }
+
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
@@ -88,40 +85,9 @@ class AddProductActivity : BaseActivity() {
         }
     }
 
-    private fun handleFailure(failure: Failure) {
-        if (!failure.errorMessage.isNullOrEmpty())
-            toast(failure.errorMessage.toString())
-        else
-            toast(getString(R.string.problem_try_again))
-    }
-
-    private fun handleNavigation(isProductAdded: Event<Boolean>) {
-        isProductAdded.peekContent()?.let {
-            if(it) {
-                toast(getString(R.string.product_added))
-                setResult(RESULT_OK)
-            } else {
-                toast(getString(R.string.problem_try_again))
-                setResult(RESULT_CANCELED)
-            }
-            finish()
-        }
-    }
-
-    private fun openChooser(event: Event<Boolean>?) {
-        if(ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
-            easyImage.openChooser(this)
-        } else {
-            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.CAMERA), PERMISSION_REQUEST)
-        }
-    }
-
-    private fun checkPrice(price: String) {
-        viewModel.validatePrice(price)
-    }
-
-    private fun checkTitle(title: String) {
-        viewModel.validateTitle(title)
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_edit, menu)
+        return super.onCreateOptionsMenu(menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
@@ -130,7 +96,46 @@ class AddProductActivity : BaseActivity() {
                 onBackPressed()
                 true
             }
+            R.id.editMode -> {
+                viewModel.setEditMode(true)
+                true
+            }
+            R.id.userProduct -> {
+                navigator.toUserProducts()
+                true
+            }
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    private fun openChooser(event: Event<Boolean>?) {
+        if(ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
+            easyImage.openChooser(this)
+        } else {
+            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.CAMERA),
+                PERMISSION_REQUEST
+            )
+        }
+    }
+
+    private fun checkPostalCode(postalCode: String?){
+        viewModel.cleanPostalCode(postalCode)
+    }
+
+    private fun handleProfileSaved(event: Event<Boolean>?) {
+        event?.getContentIfNotHandled()?.let {
+            if(it) {
+                toast(getString(R.string.profile_saved))
+                setResult(RESULT_OK)
+            } else
+                setResult(RESULT_CANCELED)
+        }
+    }
+
+    private fun handleFailure(failure: Failure) {
+        if (!failure.errorMessage.isNullOrEmpty())
+            toast(failure.errorMessage.toString())
+        else
+            toast(getString(R.string.problem_try_again))
     }
 }

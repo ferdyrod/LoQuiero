@@ -5,7 +5,7 @@
 
     <data>
         <variable
-                name="viewModel"
+                name="viewMaodel"
                 type="com.ferdyrodriguez.loquiero.usecases.userProducts.UserProductViewModel"/>
     </data>
 

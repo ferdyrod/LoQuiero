@@ -4,6 +4,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import com.ferdyrodriguez.loquiero.extensions.loadImage
+import de.hdodenhof.circleimageview.CircleImageView
 import java.io.File
 
 
@@ -15,6 +16,14 @@ fun setLoadImage(view: ImageView, file: File?){
 @BindingAdapter("load_image")
 fun setLoadImage(view: ImageView, url: String?){
     view.loadImage(url)
+}
+
+@BindingAdapter(value = ["load_locally", "load_image"], requireAll = true)
+fun setImage(view: CircleImageView, url: String?, file: File?){
+    if(file != null)
+        view.loadImage(file)
+    else
+        view.loadImage(url)
 }
 
 @BindingAdapter("price")

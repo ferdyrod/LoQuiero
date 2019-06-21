@@ -9,4 +9,12 @@ interface LocalDataSource {
     fun getAuthToken(): Either<Failure, String>
     fun getRefreshToken(): Either<Failure, String>
     fun setAuthUser(authUser: AuthUser): Either<Failure, Unit>
+    fun getUserId(): Either<Failure, Int>
+    fun saveUserProfile(
+        firstName: String?,
+        lastName: String?,
+        postalCode: Int?,
+        phone: String?,
+        photo: String?
+    ): Either<Failure, Unit>
 }

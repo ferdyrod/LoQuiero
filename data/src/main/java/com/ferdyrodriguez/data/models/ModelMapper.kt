@@ -1,9 +1,6 @@
 package com.ferdyrodriguez.data.models
 
-import com.ferdyrodriguez.domain.models.AuthUser
-import com.ferdyrodriguez.domain.models.Product
-import com.ferdyrodriguez.domain.models.RegisterUser
-import com.ferdyrodriguez.domain.models.Transaction
+import com.ferdyrodriguez.domain.models.*
 
 class ModelMapper {
 
@@ -14,7 +11,9 @@ class ModelMapper {
 
     fun AuthUserToDomain(entity: AuthUserEntity): AuthUser = AuthUser(
         entity.refresh,
-        entity.access
+        entity.access,
+        entity.user_id,
+        entity.email
     )
 
     fun productToDomain(entity: ProductEntity): Product = Product(
@@ -34,12 +33,28 @@ class ModelMapper {
 
 
     fun emptyRegisterUsed(): RegisterUserEntity = RegisterUserEntity(0, "")
-    fun emptyAuthUser(): AuthUserEntity = AuthUserEntity("", "")
+    fun emptyAuthUser(): AuthUserEntity = AuthUserEntity("", "", 0, "")
     fun emptyProduct(): ProductEntity = ProductEntity(0,0, "", "", "", "", false, 100, "", "", "", null)
+    fun emptyUserProfile(): UserProfileEntity = UserProfileEntity(0, "", "", "", null, "", "", null, "")
 
     private fun transactionToDomain(entity: TransactionEntity) : Transaction = Transaction(
         entity.buyer,
         entity.result,
         entity.created
     )
+
+    fun userProfileToDomain(entity: UserProfileEntity): UserProfile = UserProfile(
+        entity.user_id,
+        entity.email,
+        entity.first_name,
+        entity.last_name,
+        entity.postal_code,
+        entity.phone,
+        entity.ip,
+        entity.image,
+        entity.stripe_id
+    )
+
+
+
 }

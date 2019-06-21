@@ -10,6 +10,7 @@ import com.ferdyrodriguez.loquiero.usecases.main.MainActivity
 import com.ferdyrodriguez.loquiero.usecases.registration.RegistrationActivity
 import com.ferdyrodriguez.loquiero.usecases.search.SearchActivity
 import com.ferdyrodriguez.loquiero.usecases.userProducts.UserProductsActivity
+import com.ferdyrodriguez.loquiero.usecases.userProfile.UserProfileActivity
 
 class Navigator constructor(private val context: Context) {
 
@@ -47,6 +48,10 @@ class Navigator constructor(private val context: Context) {
     fun toUserProducts() = context.startActivity(Intent(context, UserProductsActivity::class.java))
 
     fun toSearch() = context.startActivity(Intent(context, SearchActivity::class.java))
+
+    fun toUserProfile(activity: Activity, requestCode: Int) {
+        activity.startActivityForResult(Intent(context, UserProfileActivity::class.java), requestCode)
+    }
 
     fun toProfileRegistration() {
 
