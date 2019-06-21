@@ -4,6 +4,8 @@ import android.content.SharedPreferences
 
 class PreferenceHelper constructor(val sharedPrefs: SharedPreferences) {
 
+    fun clearAll() = sharedPrefs.edit().clear().apply()
+
     fun contains(key: String) = sharedPrefs.contains(key)
 
     inline fun <reified T> getPreference(key: String, defValue: T? = null): T? = with(sharedPrefs) {

@@ -14,4 +14,10 @@
         android:title="@string/edit"
         android:icon="@drawable/ic_edit"
         app:showAsAction="ifRoom"/>
+
+    <item
+        android:id="@+id/signOut"
+        android:title="@string/signOut"
+        android:icon="@drawable/ic_exit_app"
+        app:showAsAction="ifRoom"/>
 </menu>

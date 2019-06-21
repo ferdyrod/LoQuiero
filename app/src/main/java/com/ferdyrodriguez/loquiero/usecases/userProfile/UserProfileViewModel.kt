@@ -11,7 +11,7 @@ import com.ferdyrodriguez.loquiero.utils.Event
 import java.io.File
 
 class UserProfileViewModel(private val useCase: SaveUserProfileUseCase,
-                           pref: PreferenceHelper) : BaseViewModel() {
+                           private val pref: PreferenceHelper) : BaseViewModel() {
 
     var firstName: MutableLiveData<String> = MutableLiveData()
     var lastName: MutableLiveData<String> = MutableLiveData()
@@ -43,7 +43,7 @@ class UserProfileViewModel(private val useCase: SaveUserProfileUseCase,
         firstName.value = pref.getPreference(PreferenceConstants.USER_FIRST_NAME, "")
         lastName.value = pref.getPreference(PreferenceConstants.USER_LAST_NAME, "")
         val code = pref.getPreference(PreferenceConstants.USER_POSTAL_CODE, -1)
-        postalCode.value = code.toString()
+        postalCode.value = if (code!! <= 0) "" else code.toString()
         phone.value = pref.getPreference(PreferenceConstants.USER_PHONE, "")
         localPhoto = pref.getPreference(PreferenceConstants.USER_PHOTO, "") ?: ""
         email = pref.getPreference(PreferenceConstants.USER_EMAIL, "") ?: ""
@@ -77,6 +77,10 @@ class UserProfileViewModel(private val useCase: SaveUserProfileUseCase,
     fun cleanPostalCode(postalCode: String?) {
         if(!postalCode.isNullOrEmpty())
             cleanedPostalCode = postalCode.toInt()
+    }
+
+    fun logOut() {
+        pref.clearAll()
     }
 
 }
