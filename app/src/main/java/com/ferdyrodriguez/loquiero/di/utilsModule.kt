@@ -1,5 +1,6 @@
 package com.ferdyrodriguez.loquiero.di
 
+import com.ferdyrodriguez.loquiero.usecases.main.MainViewModel
 import com.ferdyrodriguez.loquiero.usecases.main.ProductsAdapter
 import com.ferdyrodriguez.loquiero.usecases.search.SearchProductAdapter
 import com.ferdyrodriguez.loquiero.usecases.search.SearchViewModel
@@ -20,7 +21,7 @@ val utilsModule = module {
                 .build()
     }
 
-    factory { ProductsAdapter(get()) }
+    factory { (viewModel: MainViewModel) -> ProductsAdapter(viewModel) }
     factory { (viewModel: UserProductViewModel) -> UserProductsAdapter(viewModel) }
     factory { (viewModel: SearchViewModel) -> SearchProductAdapter(viewModel) }
 }

@@ -81,3 +81,7 @@ dependencies {
 
     debugImplementation 'com.facebook.stetho:stetho:1.5.1'
 }
+
+androidExtensions {
+    experimental = true
+}

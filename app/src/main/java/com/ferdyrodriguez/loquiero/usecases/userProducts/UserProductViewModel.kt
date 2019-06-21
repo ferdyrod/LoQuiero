@@ -41,7 +41,7 @@ class UserProductViewModel(private val useCase: GetProductsUseCase,
     }
 
     private fun handleProducts(products: List<Product>) {
-        _products.value = products.map { ProductItem(it.id, it.title, it.description, it.price, it.image) }
+        _products.value = products.map { ProductItem(it.id, it.user_id, it.title, it.description, it.price, it.image) }
     }
 
     private fun handleDeletion(unit: Unit){

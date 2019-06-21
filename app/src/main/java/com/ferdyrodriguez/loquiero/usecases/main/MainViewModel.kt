@@ -18,6 +18,10 @@ class MainViewModel(private val useCase: GetProductsUseCase,
     val navigateToAdd: LiveData<Event<Boolean>>
         get() = _navigationToAdd
 
+    private var _navigationToDetail = MutableLiveData<Event<ProductItem>>()
+    val navigateToDetail: LiveData<Event<ProductItem>>
+        get() = _navigationToDetail
+
     private var _products: MutableLiveData<List<ProductItem>> = MutableLiveData()
     val products: LiveData<List<ProductItem>>
         get() = _products
@@ -35,10 +39,14 @@ class MainViewModel(private val useCase: GetProductsUseCase,
     }
 
     fun handleProducts(products: List<Product>) {
-        _products.value = products.map { ProductItem(it.id, it.title, it.description, it.price, it.image) }
+        _products.value = products.map { ProductItem(it.id, it.user_id, it.title, it.description, it.price, it.image) }
     }
 
     fun getPhoto(){
         photo.value = prefs.getPreference(PreferenceConstants.USER_PHOTO, "")
+    }
+
+    fun goToProduct(product: ProductItem) {
+        _navigationToDetail.value = Event(product)
     }
 }
