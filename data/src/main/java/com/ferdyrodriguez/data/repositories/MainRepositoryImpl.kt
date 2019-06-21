@@ -72,4 +72,7 @@ class MainRepositoryImpl constructor(
                 }
             }
         }
+
+    override fun chargeCreditCard(productId: Int, cardToken: String): Either<Failure, Product> =
+            remoteDataSource.chargeCreditCard(productId, cardToken)
 }

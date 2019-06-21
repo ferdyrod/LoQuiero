@@ -95,6 +95,12 @@ class RemoteDataSourceImpl constructor(
         return request(call, { mapper.userProfileToDomain(it) }, mapper.emptyUserProfile())
     }
 
+    override fun chargeCreditCard(productId: Int, cardToken: String): Either<Failure, Product> {
+        val charge = ChargeDto(cardToken)
+        val call = service.chargeCreditCard(productId, charge)
+        return request(call, { mapper.productToDomain(it) }, mapper.emptyProduct())
+    }
+
     private fun <T, R> request(call: Call<ApiResponse<T>>, transform: (T) -> R, default: T): Either<Failure, R> {
         return try {
             val response = call.execute()

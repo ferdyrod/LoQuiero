@@ -9,7 +9,6 @@ import com.ferdyrodriguez.loquiero.base.BaseActivity
 import com.ferdyrodriguez.loquiero.databinding.ActivityRegistrationBinding
 import com.ferdyrodriguez.loquiero.extensions.emptyString
 import com.ferdyrodriguez.loquiero.extensions.toast
-import kotlinx.android.synthetic.main.toolbar.view.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class RegistrationActivity : BaseActivity() {
@@ -51,7 +50,7 @@ class RegistrationActivity : BaseActivity() {
 
     private fun handleNavigation(isUserRegisterComplete: Boolean) {
         if(isUserRegisterComplete){
-            navigator.toProfileRegistration()
+            navigator.toMain(true)
         }
     }
 

@@ -25,5 +25,6 @@ interface MainRepository {
         phone: String?,
         photo: File?
     ): Either<Failure, UserProfile>
+    fun chargeCreditCard(productId: Int, cardToken: String): Either<Failure, Product>
 
 }

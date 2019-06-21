@@ -68,6 +68,7 @@ dependencies {
     implementation Libs.easyImage
     implementation Libs.compressor
     implementation Libs.circleImage
+    implementation Libs.stripe
 
 
     testImplementation TestLibs.junit

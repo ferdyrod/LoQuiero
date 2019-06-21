@@ -153,6 +153,7 @@
                 android:textAllCaps="false"
                 android:visibility="@{ viewModel.userId == product.seller_id ? View.GONE : View.VISIBLE }"
                 app:setPriceBtn="@{ product.price }"
+                android:onClick="@{ () -> viewModel.goToBuy() }"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@id/start_guideline"
                 app:layout_constraintEnd_toStartOf="@id/end_guideline"/>

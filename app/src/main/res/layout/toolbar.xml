@@ -63,7 +63,8 @@
                             android:layout_height="match_parent"
                             android:layout_marginEnd="16dp"
                             android:layout_alignParentEnd="true"
-                            app:load_image="@{ viewModel.photo }"
+                            android:visibility="invisible"
+                            app:load_toolbar_image="@{ viewModel.photo }"
                             app:civ_border_color="@android:color/white"
                             app:civ_border_width="1dp"
                             tools:src="@tools:sample/avatars"/>

@@ -4,6 +4,7 @@ package com.ferdyrodriguez.loquiero.utils
 class Constants {
 
     companion object{
+        const val PRODUCT_ID = "PRODUCT_ID"
         const val PRODUCT = "PRODUCT"
         const val AUTH_TOKEN = "AUTH_TOKEN"
         const val REFRESH_TOKEN = "REFRESH_TOKEN"
