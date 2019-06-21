@@ -2,6 +2,7 @@ package com.ferdyrodriguez.loquiero.di
 
 import com.ferdyrodriguez.loquiero.models.ProductItem
 import com.ferdyrodriguez.loquiero.usecases.addproduct.AddProductViewModel
+import com.ferdyrodriguez.loquiero.usecases.buyProduct.BuyProductViewModel
 import com.ferdyrodriguez.loquiero.usecases.login.LoginViewModel
 import com.ferdyrodriguez.loquiero.usecases.loginOrRegistration.LoginOrRegistrationViewModel
 import com.ferdyrodriguez.loquiero.usecases.main.MainViewModel
@@ -26,4 +27,5 @@ val viewModelModule = module {
     viewModel { SearchViewModel(get()) }
     viewModel { UserProfileViewModel(get(), get()) }
     viewModel { (product: ProductItem) -> ProductDetailViewModel(product, get()) }
+    viewModel { BuyProductViewModel(get(), get()) }
 }

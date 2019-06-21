@@ -34,6 +34,7 @@ class MainActivity : BaseActivity() {
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
 
+        binding.baseToolbar.profilePicture.visible()
         binding.baseToolbar.AppBarTitle.text = getString(R.string.app_name)
 
         val layoutManager = GridLayoutManager(this, 2)

@@ -38,4 +38,7 @@
     <string name="edit">Editar</string>
     <string name="profile_saved">Datos guardados</string>
     <string name="buy">Comprar</string>
+    <string name="pay">Pagar</string>
+    <string name="stripe_key">pk_test_a8VQpTd59TPYz5Lr878GXdU3005c079m2m</string>
+    <string name="payment_method">Método de pago</string>
 </resources>

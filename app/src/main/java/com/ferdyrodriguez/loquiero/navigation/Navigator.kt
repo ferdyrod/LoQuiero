@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import com.ferdyrodriguez.loquiero.models.ProductItem
 import com.ferdyrodriguez.loquiero.usecases.addproduct.AddProductActivity
+import com.ferdyrodriguez.loquiero.usecases.buyProduct.BuyProductActivity
 import com.ferdyrodriguez.loquiero.usecases.login.LoginActivity
 import com.ferdyrodriguez.loquiero.usecases.loginOrRegistration.LoginOrRegistrationActivity
 import com.ferdyrodriguez.loquiero.usecases.main.MainActivity
@@ -14,7 +15,6 @@ import com.ferdyrodriguez.loquiero.usecases.search.SearchActivity
 import com.ferdyrodriguez.loquiero.usecases.userProducts.UserProductsActivity
 import com.ferdyrodriguez.loquiero.usecases.userProfile.UserProfileActivity
 import com.ferdyrodriguez.loquiero.utils.Constants
-
 class Navigator constructor(private val context: Context) {
 
     fun toLoginOrRegistration() {
@@ -56,13 +56,16 @@ class Navigator constructor(private val context: Context) {
         activity.startActivityForResult(Intent(context, UserProfileActivity::class.java), requestCode)
     }
 
-    fun toProfileRegistration() {
-
-    }
-
     fun toProductDetail(product: ProductItem) {
         val intent = Intent(context, ProductDetailActivity::class.java)
         intent.putExtra(Constants.PRODUCT, product)
         context.startActivity(intent)
     }
+
+    fun toBuyProduct(activity: Activity, requestCode: Int, id: Int) {
+        val intent = Intent(context, BuyProductActivity::class.java)
+        intent.putExtra(Constants.PRODUCT_ID, id)
+        activity.startActivityForResult(intent, requestCode)
+    }
 }
+

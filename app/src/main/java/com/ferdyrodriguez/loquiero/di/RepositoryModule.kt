@@ -24,4 +24,5 @@ val repositoryModule: Module = module {
     factory { GetProductsUseCase(get()) }
     factory { DeleteProductUseCase(get()) }
     factory { SaveUserProfileUseCase(get()) }
+    factory { ChargeCreditCard(get()) }
 }

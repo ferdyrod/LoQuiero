@@ -19,6 +19,7 @@ object Versions {
     val easyImageVersion = "3.0.1"
     val compressorVersion = "2.1.0"
     val circleViewVersion = "3.0.0"
+    val stripeVersion = "9.3.5"
 
     //Testing
     //Unit Testing
@@ -81,6 +82,7 @@ object Libs {
     val easyImage = "com.github.jkwiecien:EasyImage:${Versions.easyImageVersion}"
     val compressor = "id.zelory:compressor:${Versions.compressorVersion}"
     val circleImage = "de.hdodenhof:circleimageview:${Versions.circleViewVersion}"
+    val stripe = "com.stripe:stripe-android:${Versions.stripeVersion}"
 
     val koinCore = "org.koin:koin-core:${Versions.koinVersion}"
     val koinAndroid = "org.koin:koin-android:${Versions.koinVersion}"

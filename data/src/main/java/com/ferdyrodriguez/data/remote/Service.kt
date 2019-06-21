@@ -41,6 +41,9 @@ class ApiService(retrofit: Retrofit) : Service {
 
     override fun saveUserProfile(id: Int, userProfile: UserProfileDto): Call<ApiResponse<UserProfileEntity>> =
         apiService.saveUserProfile(id, userProfile)
+
+    override fun chargeCreditCard(productId: Int, charge: ChargeDto): Call<ApiResponse<ProductEntity>> =
+        apiService.chargeCreditCard(productId, charge)
 }
 
 
@@ -57,6 +60,7 @@ interface Service {
         private const val RERESH_TOKEN: String = "$AUTH/refresh/"
         private const val VERIFY_TOKEN: String = "$AUTH/verify/"
         private const val PRODUCTS: String = "$PUBLICATIONS"
+        private const val PRODUCT_BUY: String = "$PUBLICATIONS/{id}/buy/"
         private const val USER_PRODUCTS: String = "$PUBLICATIONS/$USER/"
         private const val USER_PRODUCTS_ID: String = "$PUBLICATIONS/$USER/{id}/"
         private const val USER_PROFILE_ID: String = "$USER/{id}/"
@@ -107,4 +111,8 @@ interface Service {
     @PATCH(USER_PROFILE_ID)
     fun saveUserProfile(@Path("id") id: Int,
                         @Body userProfile: UserProfileDto): Call<ApiResponse<UserProfileEntity>>
+
+    @POST(PRODUCT_BUY)
+    fun chargeCreditCard(@Path("id") productId: Int,
+                         @Body charge: ChargeDto): Call<ApiResponse<ProductEntity>>
 }

@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import com.bumptech.glide.Glide
+import com.ferdyrodriguez.loquiero.R
 import java.io.File
 
 
@@ -15,11 +16,18 @@ fun ImageView.loadImage(file: File?) {
         .into(this)
 }
 
-fun ImageView.loadImage(url: String?) {
-    Glide.with(this.context)
-        .load(url)
-        .centerCrop()
-        .into(this)
+fun ImageView.loadImage(url: String?, isProfile: Boolean = false) {
+    if(isProfile) {
+        Glide.with(this.context)
+            .load(url)
+            .placeholder(this.context.getDrawable(R.drawable.ic_account_circle))
+            .into(this)
+    } else {
+        Glide.with(this.context)
+            .load(url)
+            .centerCrop()
+            .into(this)
+    }
 }
 
 fun ViewGroup.inflater(): LayoutInflater =

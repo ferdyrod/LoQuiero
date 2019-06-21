@@ -19,6 +19,11 @@ fun setLoadImage(view: ImageView, url: String?){
     view.loadImage(url)
 }
 
+@BindingAdapter("load_toolbar_image")
+fun setToolbarImage(view: ImageView, url: String?){
+    view.loadImage(url, true)
+}
+
 @BindingAdapter(value = ["load_locally", "load_image"], requireAll = true)
 fun setImage(view: CircleImageView, url: String?, file: File?){
     if(file != null)

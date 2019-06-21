@@ -18,7 +18,7 @@
             android:usesCleartextTraffic="true"
             tools:ignore="GoogleAppIndexingWarning">
         <activity android:name=".usecases.splash.SplashActivity">
-        <intent-filter>
+            <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
@@ -32,7 +32,7 @@
         <activity android:name=".usecases.search.SearchActivity"/>
         <activity android:name=".usecases.userProfile.UserProfileActivity"/>
         <activity android:name=".usecases.productDetail.ProductDetailActivity"/>
+        <activity android:name=".usecases.buyProduct.BuyProductActivity"/>
     </application>
-
 
 </manifest>
