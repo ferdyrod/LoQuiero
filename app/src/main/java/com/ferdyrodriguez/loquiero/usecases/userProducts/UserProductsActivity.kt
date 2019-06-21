@@ -29,7 +29,7 @@ class UserProductsActivity : AppCompatActivity() {
 
         setSupportActionBar(binding.baseToolbar.toolbar)
         supportActionBar.let {
-            title = getString(R.string.user_products)
+            binding.baseToolbar.AppBarTitle.text = getString(R.string.user_products)
             it?.setHomeButtonEnabled(true)
             it?.setDisplayHomeAsUpEnabled(true)
             it?.setHomeAsUpIndicator(R.drawable.ic_arrow_back)

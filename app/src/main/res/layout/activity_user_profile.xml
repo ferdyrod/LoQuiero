@@ -196,7 +196,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:singleLine="true"
-                            android:inputType="textPostalAddress"
+                            android:inputType="number"
                             android:enabled="@{ viewModel.isInEditMode }"
                             android:text="@={ viewModel.postalCode }"/>
 

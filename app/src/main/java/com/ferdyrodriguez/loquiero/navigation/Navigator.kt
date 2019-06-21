@@ -49,7 +49,9 @@ class Navigator constructor(private val context: Context) {
 
     fun toSearch() = context.startActivity(Intent(context, SearchActivity::class.java))
 
-    fun toUserProfile() = context.startActivity(Intent(context, UserProfileActivity::class.java))
+    fun toUserProfile(activity: Activity, requestCode: Int) {
+        activity.startActivityForResult(Intent(context, UserProfileActivity::class.java), requestCode)
+    }
 
     fun toProfileRegistration() {
 

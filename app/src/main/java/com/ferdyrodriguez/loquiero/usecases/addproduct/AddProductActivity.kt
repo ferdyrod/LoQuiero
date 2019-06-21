@@ -15,12 +15,11 @@ import com.ferdyrodriguez.loquiero.databinding.ActivityAddProductBinding
 import com.ferdyrodriguez.loquiero.extensions.toast
 import com.ferdyrodriguez.loquiero.utils.Event
 import id.zelory.compressor.Compressor
-import kotlinx.android.synthetic.main.toolbar.view.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
 import kotlinx.coroutines.withContext
-import org.koin.androidx.scope.currentScope
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import pl.aprilapps.easyphotopicker.DefaultCallback
 import pl.aprilapps.easyphotopicker.EasyImage
@@ -36,7 +35,7 @@ class AddProductActivity : BaseActivity() {
     private lateinit var binding: ActivityAddProductBinding
 
     private val viewModel: AddProductViewModel by viewModel()
-    private val easyImage: EasyImage by currentScope.inject()
+    private val easyImage: EasyImage by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,7 +45,7 @@ class AddProductActivity : BaseActivity() {
 
         setSupportActionBar(binding.baseToolbar.toolbar)
         supportActionBar.let {
-            title = getString(R.string.add_product)
+            binding.baseToolbar.AppBarTitle.text = getString(R.string.add_product)
             it?.setHomeButtonEnabled(true)
             it?.setDisplayHomeAsUpEnabled(true)
             it?.setHomeAsUpIndicator(R.drawable.ic_arrow_back)

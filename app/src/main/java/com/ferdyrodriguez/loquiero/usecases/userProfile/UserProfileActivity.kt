@@ -45,7 +45,6 @@ class UserProfileActivity : BaseActivity() {
 
         setSupportActionBar(binding.baseToolbar.toolbar)
         supportActionBar.let {
-            title = getString(R.string.add_product)
             it?.setHomeButtonEnabled(true)
             it?.setDisplayHomeAsUpEnabled(true)
             it?.setHomeAsUpIndicator(R.drawable.ic_arrow_back)
@@ -125,8 +124,11 @@ class UserProfileActivity : BaseActivity() {
 
     private fun handleProfileSaved(event: Event<Boolean>?) {
         event?.getContentIfNotHandled()?.let {
-            if(it)
+            if(it) {
                 toast(getString(R.string.profile_saved))
+                setResult(RESULT_OK)
+            } else
+                setResult(RESULT_CANCELED)
         }
     }
 
