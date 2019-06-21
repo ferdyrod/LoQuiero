@@ -14,6 +14,7 @@ import com.ferdyrodriguez.loquiero.models.ProductItem
 import com.ferdyrodriguez.loquiero.utils.Event
 import kotlinx.android.synthetic.main.toolbar.view.*
 import org.koin.android.ext.android.inject
+import org.koin.core.parameter.parametersOf
 
 class MainActivity : BaseActivity() {
 
@@ -25,7 +26,7 @@ class MainActivity : BaseActivity() {
     private lateinit var binding: ActivityMainBinding
 
     private val viewModel: MainViewModel by inject()
-    private val adapter: ProductsAdapter by inject()
+    private val adapter: ProductsAdapter by inject { parametersOf(viewModel) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,7 +40,8 @@ class MainActivity : BaseActivity() {
         binding.recyclerView.layoutManager = layoutManager
         binding.recyclerView.adapter = adapter
 
-        viewModel.navigateToAdd.observe(this, Observer(this::navigateToAddProduct))
+        viewModel.navigateToAdd.observe(this, Observer(::navigateToAddProduct))
+        viewModel.navigateToDetail.observe(this, Observer(::navigateToDetail))
         viewModel.products.observe(this, Observer(::setList))
 
         binding.baseToolbar.profilePictureLayout.search_layout.visible()
@@ -67,6 +69,12 @@ class MainActivity : BaseActivity() {
     private fun navigateToAddProduct(event: Event<Boolean>) {
         event.getContentIfNotHandled()?.let {
             navigator.toAddProduct(this, ADD_REQUEST_CODE)
+        }
+    }
+
+    private fun navigateToDetail(event: Event<ProductItem>) {
+        event.getContentIfNotHandled()?.let {
+            navigator.toProductDetail(it)
         }
     }
 

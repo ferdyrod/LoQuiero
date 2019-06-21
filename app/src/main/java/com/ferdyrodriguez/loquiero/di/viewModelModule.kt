@@ -1,9 +1,11 @@
 package com.ferdyrodriguez.loquiero.di
 
+import com.ferdyrodriguez.loquiero.models.ProductItem
 import com.ferdyrodriguez.loquiero.usecases.addproduct.AddProductViewModel
 import com.ferdyrodriguez.loquiero.usecases.login.LoginViewModel
 import com.ferdyrodriguez.loquiero.usecases.loginOrRegistration.LoginOrRegistrationViewModel
 import com.ferdyrodriguez.loquiero.usecases.main.MainViewModel
+import com.ferdyrodriguez.loquiero.usecases.productDetail.ProductDetailViewModel
 import com.ferdyrodriguez.loquiero.usecases.registration.RegistrationViewModel
 import com.ferdyrodriguez.loquiero.usecases.search.SearchViewModel
 import com.ferdyrodriguez.loquiero.usecases.splash.SplashViewModel
@@ -23,4 +25,5 @@ val viewModelModule = module {
     viewModel { UserProductViewModel(get(), get()) }
     viewModel { SearchViewModel(get()) }
     viewModel { UserProfileViewModel(get(), get()) }
+    viewModel { (product: ProductItem) -> ProductDetailViewModel(product, get()) }
 }

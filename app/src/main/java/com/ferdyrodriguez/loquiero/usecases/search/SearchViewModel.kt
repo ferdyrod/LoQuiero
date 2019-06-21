@@ -6,8 +6,13 @@ import com.ferdyrodriguez.domain.models.Product
 import com.ferdyrodriguez.domain.usecases.GetProductsUseCase
 import com.ferdyrodriguez.loquiero.base.BaseViewModel
 import com.ferdyrodriguez.loquiero.models.ProductItem
+import com.ferdyrodriguez.loquiero.utils.Event
 
 class SearchViewModel(private val usecase:GetProductsUseCase): BaseViewModel() {
+
+    private var _navigationToDetail = MutableLiveData<Event<ProductItem>>()
+    val navigateToDetail: LiveData<Event<ProductItem>>
+        get() = _navigationToDetail
 
     private var _products: MutableLiveData<List<ProductItem>> = MutableLiveData()
     val products: LiveData<List<ProductItem>>
@@ -21,6 +26,10 @@ class SearchViewModel(private val usecase:GetProductsUseCase): BaseViewModel() {
     }
 
     fun handleProducts(products: List<Product>) {
-        _products.value = products.map { ProductItem(it.id, it.title, it.description, it.price, it.image) }
+        _products.value = products.map { ProductItem(it.id, it.user_id, it.title, it.description, it.price, it.image) }
+    }
+
+    fun goToProduct(product: ProductItem) {
+        _navigationToDetail.value = Event(product)
     }
 }

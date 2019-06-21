@@ -3,6 +3,7 @@ package com.ferdyrodriguez.loquiero.utils
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
+import com.ferdyrodriguez.loquiero.R
 import com.ferdyrodriguez.loquiero.extensions.loadImage
 import de.hdodenhof.circleimageview.CircleImageView
 import java.io.File
@@ -34,5 +35,17 @@ fun setPrice(view: TextView, price: Int){
         val formattedPrice = StringBuilder(price.toString())
         formattedPrice.insert(formattedPrice.length-2, ",")
         view.text = formattedPrice
+    }
+}
+
+@BindingAdapter("setPriceBtn")
+fun setPriceBtn(view: TextView, price: Int){
+    if (price <= 0){
+        view.text = view.context.getString(R.string.buy)
+    } else {
+        val formattedPrice = StringBuilder(price.toString())
+        formattedPrice.insert(formattedPrice.length-2, ",")
+        val finalText = "${view.context.getString(R.string.buy)} a ${formattedPrice}€"
+        view.text = finalText
     }
 }

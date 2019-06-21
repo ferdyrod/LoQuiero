@@ -10,6 +10,7 @@ import com.ferdyrodriguez.loquiero.R
 import com.ferdyrodriguez.loquiero.base.BaseActivity
 import com.ferdyrodriguez.loquiero.databinding.ActivitySearchBinding
 import com.ferdyrodriguez.loquiero.models.ProductItem
+import com.ferdyrodriguez.loquiero.utils.Event
 import org.koin.android.ext.android.inject
 import org.koin.core.parameter.parametersOf
 
@@ -49,6 +50,8 @@ class SearchActivity : BaseActivity() {
         })
 
         viewModel.products.observe(this, Observer(::setlist))
+        viewModel.navigateToDetail.observe(this, Observer(::navigateToDetail))
+
 
     }
 
@@ -59,6 +62,12 @@ class SearchActivity : BaseActivity() {
                 true
             }
             else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    private fun navigateToDetail(event: Event<ProductItem>) {
+        event.getContentIfNotHandled()?.let {
+            navigator.toProductDetail(it)
         }
     }
 

@@ -21,6 +21,10 @@ class SearchProductAdapter(private val viewModel: SearchViewModel) : BaseAdapter
             binding.setVariable(BR.item, product)
             binding.setVariable(BR.viewModel, viewModel)
             binding.executePendingBindings()
+
+            binding.root.setOnClickListener{
+                viewModel.goToProduct(product)
+            }
         }
     }
 }
