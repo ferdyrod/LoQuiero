@@ -104,6 +104,11 @@ class UserProfileActivity : BaseActivity() {
                 navigator.toUserProducts()
                 true
             }
+            R.id.signOut-> {
+                viewModel.logOut()
+                navigator.toLogin()
+                true
+            }
             else -> super.onOptionsItemSelected(item)
         }
     }

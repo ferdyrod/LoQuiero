@@ -41,4 +41,5 @@
     <string name="pay">Pagar</string>
     <string name="stripe_key">pk_test_a8VQpTd59TPYz5Lr878GXdU3005c079m2m</string>
     <string name="payment_method">Método de pago</string>
+    <string name="signOut">Cerrar sesión</string>
 </resources>
