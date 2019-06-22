@@ -101,6 +101,11 @@ class RemoteDataSourceImpl constructor(
         return request(call, { mapper.productToDomain(it) }, mapper.emptyProduct())
     }
 
+    override fun getUser(user_id: Int?): Either<Failure, UserProfile> {
+        val call = service.getUserProfile(user_id)
+        return request(call, { mapper.userProfileToDomain(it) }, mapper.emptyUserProfile())
+    }
+
     private fun <T, R> request(call: Call<ApiResponse<T>>, transform: (T) -> R, default: T): Either<Failure, R> {
         return try {
             val response = call.execute()

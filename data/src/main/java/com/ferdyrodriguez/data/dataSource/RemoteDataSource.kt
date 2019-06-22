@@ -26,4 +26,5 @@ interface RemoteDataSource {
         photo: File?
     ): Either<Failure, UserProfile>
     fun chargeCreditCard(productId: Int, cardToken: String): Either<Failure, Product>
+    fun getUser(user_id: Int?): Either<Failure, UserProfile>
 }

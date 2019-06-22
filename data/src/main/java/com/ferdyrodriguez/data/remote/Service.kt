@@ -44,6 +44,9 @@ class ApiService(retrofit: Retrofit) : Service {
 
     override fun chargeCreditCard(productId: Int, charge: ChargeDto): Call<ApiResponse<ProductEntity>> =
         apiService.chargeCreditCard(productId, charge)
+
+    override fun getUserProfile(user_id: Int?): Call<ApiResponse<UserProfileEntity>> =
+        apiService.getUserProfile(user_id)
 }
 
 
@@ -109,10 +112,17 @@ interface Service {
     ): Call<ApiResponse<UserProfileEntity>>
 
     @PATCH(USER_PROFILE_ID)
-    fun saveUserProfile(@Path("id") id: Int,
-                        @Body userProfile: UserProfileDto): Call<ApiResponse<UserProfileEntity>>
+    fun saveUserProfile(
+        @Path("id") id: Int,
+        @Body userProfile: UserProfileDto
+    ): Call<ApiResponse<UserProfileEntity>>
 
     @POST(PRODUCT_BUY)
-    fun chargeCreditCard(@Path("id") productId: Int,
-                         @Body charge: ChargeDto): Call<ApiResponse<ProductEntity>>
+    fun chargeCreditCard(
+        @Path("id") productId: Int,
+        @Body charge: ChargeDto
+    ): Call<ApiResponse<ProductEntity>>
+
+    @GET(USER_PROFILE_ID)
+    fun getUserProfile(@Path("id") user_id: Int?): Call<ApiResponse<UserProfileEntity>>
 }

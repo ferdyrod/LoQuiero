@@ -29,9 +29,10 @@ class Navigator constructor(private val context: Context) {
         context.startActivity(intent)
     }
 
-    fun toLogin() {
+    fun toLogin(finishAll: Boolean = false) {
         val intent = Intent(context, LoginActivity::class.java)
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        if(finishAll)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_CLEAR_TASK)
         context.startActivity(intent)
     }
 

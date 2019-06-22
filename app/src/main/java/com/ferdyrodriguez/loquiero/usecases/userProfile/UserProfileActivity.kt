@@ -106,7 +106,7 @@ class UserProfileActivity : BaseActivity() {
             }
             R.id.signOut-> {
                 viewModel.logOut()
-                navigator.toLogin()
+                navigator.toLogin(true)
                 true
             }
             else -> super.onOptionsItemSelected(item)
