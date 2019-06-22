@@ -45,7 +45,11 @@ class MainRepositoryImpl constructor(
     override fun logInUser(email: String, password: String): Either<Failure, AuthUser> =
         remoteDataSource.logInUser(email, password).flatMap { authUser ->
             localDataSource.setAuthUser(authUser).flatMap {
-                Either.Right(authUser)
+                remoteDataSource.getUser(authUser.user_id).flatMap {
+                    localDataSource.saveUserProfile(it.firstName, it.lastName, it.postalCode, it.phone, it.photo).flatMap {
+                        Either.Right(authUser)
+                    }
+                }
             }
         }
 
