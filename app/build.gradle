@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
 
 android {
@@ -19,6 +20,19 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    dataBinding {
+        enabled = true
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    sourceSets {
+        test.java.srcDirs += 'src/test/kotlin'
+        androidTest.java.srcDirs += 'src/androidTest/kotlin'
+    }
 }
 
 
@@ -26,11 +40,49 @@ dependencies {
     implementation project(Modules.data)
     implementation project(Modules.domain)
 
+    //Compile time dependencies
+    implementation 'androidx.appcompat:appcompat:1.0.2'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    kapt Libs.lifecycleCompiler
+
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation Libs.kotlinStd
+    implementation Libs.kotlinCoroutines
     implementation Libs.appcompat
+    implementation Libs.lifecycle
     implementation Libs.corektx
+    implementation Libs.constraintLayout
+    implementation Libs.materialComponents
+
+    implementation Libs.cardview
+    implementation Libs.recyclerview
+    implementation Libs.androidAnnotations
+    implementation Libs.glide
+    implementation Libs.koinCore
+    implementation Libs.koinAndroid
+    implementation Libs.koinViewModel
+    implementation Libs.retrofit
+    implementation Libs.retrofitMoshi
+    implementation Libs.okhttp
+    implementation Libs.okhttpInterceptor
+    implementation Libs.easyImage
+    implementation Libs.compressor
+    implementation Libs.circleImage
+    implementation Libs.stripe
+
+
     testImplementation TestLibs.junit
+    testImplementation TestLibs.robolectric
     androidTestImplementation TestLibs.runner
+    androidTestImplementation TestLibs.testRules
+    androidTestImplementation TestLibs.testCore
+    androidTestImplementation TestLibs.testCoreKtx
+    androidTestImplementation TestLibs.testExt
     androidTestImplementation TestLibs.espresso
+
+    debugImplementation 'com.facebook.stetho:stetho:1.5.1'
+}
+
+androidExtensions {
+    experimental = true
 }

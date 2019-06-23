@@ -1,11 +1,24 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="SearchToolbar" parent="ThemeOverlay.MaterialComponents.ActionBar">
+        <item name="autoCompleteTextViewStyle">@style/AutoCompleteTextView.SearchView</item>
+        <item name="searchViewStyle">@style/SearchView</item>
+    </style>
+
+    <style name="AutoCompleteTextView.SearchView" parent="Widget.AppCompat.AutoCompleteTextView">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textColorHint">@color/dark_white</item>
+    </style>
+
+    <style name="SearchView" parent="Widget.AppCompat.SearchView">
+        <item name="closeIcon">@drawable/ic_close</item>
+    </style>
 </resources>
