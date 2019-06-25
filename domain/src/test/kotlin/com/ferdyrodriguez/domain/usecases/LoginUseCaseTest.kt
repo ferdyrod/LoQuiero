@@ -41,7 +41,7 @@ class LoginUseCaseTest : AutoCloseKoinTest() {
     @Test
     fun `should login user successfully`() {
         loadKoinModules(modules)
-        given { repository.logInUser("email", "password") } willReturn { Either.Right(AuthUser("refreshToken", "authToken")) }
+        given { repository.logInUser("email", "password") } willReturn { Either.Right(AuthUser("refreshToken", "authToken", 0, "")) }
 
         runBlocking { useCase.run(LoginUseCase.Params("email", "password")) }
 

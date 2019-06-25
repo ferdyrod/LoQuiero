@@ -6,6 +6,7 @@ import com.ferdyrodriguez.domain.fp.Either
 import com.ferdyrodriguez.domain.models.AuthUser
 import com.ferdyrodriguez.domain.models.Product
 import com.ferdyrodriguez.domain.models.RegisterUser
+import com.ferdyrodriguez.domain.models.UserProfile
 import java.io.File
 
 class MockRepositoryImpl : MainRepository {
@@ -32,6 +33,28 @@ class MockRepositoryImpl : MainRepository {
 
     override fun addProduct(product: String, description: String?, price: Int, mediaFile: File):
             Either<Failure, Product> {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun getProducts(search: String?, ofUser: Boolean): Either<Failure, List<Product>> {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun deleteProduct(id: Int): Either<Failure, Unit> {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun saveUserProfile(
+        firstName: String?,
+        lastName: String?,
+        postalCode: Int?,
+        phone: String?,
+        photo: File?
+    ): Either<Failure, UserProfile> {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun chargeCreditCard(productId: Int, cardToken: String): Either<Failure, Product> {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 }
