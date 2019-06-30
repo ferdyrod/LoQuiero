@@ -81,7 +81,6 @@ dependencies {
     androidTestImplementation TestLibs.testExt
     androidTestImplementation TestLibs.espresso
 
-    debugImplementation 'com.facebook.stetho:stetho:1.5.1'
 }
 
 androidExtensions {
