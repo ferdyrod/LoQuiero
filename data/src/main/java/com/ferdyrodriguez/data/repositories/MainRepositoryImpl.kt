@@ -21,8 +21,8 @@ class MainRepositoryImpl constructor(
         localDataSource.getAuthToken()
 
     override fun refreshToken(): Either<Failure, AuthUser> =
-        localDataSource.getRefreshToken().flatMap { token ->
-            remoteDataSource.refreshToken(token).flatMap { authUser ->
+        localDataSource.getRefreshToken().flatMap { token: String ->
+            remoteDataSource.refreshToken(token).flatMap { authUser: AuthUser ->
                 localDataSource.setAuthUser(authUser).flatMap {
                     Either.Right(authUser)
                 }
@@ -45,10 +45,9 @@ class MainRepositoryImpl constructor(
     override fun logInUser(email: String, password: String): Either<Failure, AuthUser> =
         remoteDataSource.logInUser(email, password).flatMap { authUser ->
             localDataSource.setAuthUser(authUser).flatMap {
-                remoteDataSource.getUser(authUser.user_id).flatMap {
-                    localDataSource.saveUserProfile(it.firstName, it.lastName, it.postalCode, it.phone, it.photo).flatMap {
-                        Either.Right(authUser)
-                    }
+                remoteDataSource.getUser(authUser.user_id).flatMap { it: UserProfile ->
+                    localDataSource.saveUserProfile(it.firstName, it.lastName, it.postalCode, it.phone, it.photo)
+                    Either.Right(authUser)
                 }
             }
         }

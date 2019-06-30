@@ -20,6 +20,7 @@ import org.koin.test.AutoCloseKoinTest
 import org.koin.test.inject
 import org.mockito.Mock
 import org.mockito.junit.MockitoJUnitRunner
+import java.io.File
 
 
 @RunWith(MockitoJUnitRunner::class)
@@ -32,7 +33,8 @@ class AddProductTest : AutoCloseKoinTest() {
     @Mock
     private lateinit var repository: MainRepository
     private val useCase: AddProductUseCase by inject()
-    private val product  = Product(0, 0, "title", "description", "BUY", "PENDING", true, 1000, "", "", null)
+    private val product  = Product(0, 0, "title", "description", "BUY", "PENDING", true, 1000, "", "", "",null)
+    private val file = File("")
 
     @Before
     fun setUp() {
@@ -43,34 +45,34 @@ class AddProductTest : AutoCloseKoinTest() {
     @Test
     fun `should login user successfully`() {
         loadKoinModules(modules)
-        given { repository.addProduct(product.title, product.description, product.price, params.mediaFile) } willReturn { Either.Right(product)}
+        given { repository.addProduct(product.title, product.description, product.price, file) } willReturn { Either.Right(product)}
 
         runBlocking { useCase.run(AddProductUseCase.Params(
             product.title,
             product.description,
             product.price,
-            photo.value!!
+            file
         )) }
 
-        verify(repository).addProduct(product.title, product.description, product.price, params.mediaFile)
+        verify(repository).addProduct(product.title, product.description, product.price, file)
         verifyNoMoreInteractions(repository)
-        repository.addProduct(product.title, product.description, product.price, params.mediaFile).isRight shouldBe true
+        repository.addProduct(product.title, product.description, product.price, file).isRight shouldBe true
     }
 
     @Test
     fun `should return error when there is a problem`() {
         loadKoinModules(modules)
 
-        given { repository.addProduct(product.title, product.description, product.price, params.mediaFile) } willReturn { Either.Left(Failure.ServerError()) }
+        given { repository.addProduct(product.title, product.description, product.price, file) } willReturn { Either.Left(Failure.ServerError()) }
 
         runBlocking { useCase.run(AddProductUseCase.Params(
             product.title,
             product.description,
             product.price,
-            photo.value!!
+            file
         )) }
-        verify(repository).addProduct(product.title, product.description, product.price, params.mediaFile)
+        verify(repository).addProduct(product.title, product.description, product.price, file)
         verifyNoMoreInteractions(repository)
-        repository.addProduct(product.title, product.description, product.price, params.mediaFile).isLeft shouldBe true
+        repository.addProduct(product.title, product.description, product.price, file).isLeft shouldBe true
     }
 }

@@ -49,7 +49,7 @@ class AuthRemoteDataSourceTests: AutoCloseKoinTest() {
     fun `should return auth user from dataSource`(){
         loadKoinModules(modules)
         val userDto = AuthUserDto("email", "password")
-        val rightResponse = ApiResponse(AuthUserEntity("refresh", "auth"))
+        val rightResponse = ApiResponse(AuthUserEntity("refresh", "auth", 0, ""))
 
         given { response.body() } willReturn { rightResponse }
         given { response.isSuccessful } willReturn { true}
