@@ -1,7 +1,7 @@
 organization=ferdyrod-github
 projectKey=ferdyrod_LoQuiero
 serverUrl=https://sonarcloud.io
-serverVersion=7.8.0.26123
+serverVersion=7.9.0.26601
 dashboardUrl=https://sonarcloud.io/dashboard?id=ferdyrod_LoQuiero
-ceTaskId=AWuGLXA2YxfuI0qRLR-8
-ceTaskUrl=https://sonarcloud.io/api/ce/task?id=AWuGLXA2YxfuI0qRLR-8
+ceTaskId=AWuvp5P-bHowU4HKgEZc
+ceTaskUrl=https://sonarcloud.io/api/ce/task?id=AWuvp5P-bHowU4HKgEZc
