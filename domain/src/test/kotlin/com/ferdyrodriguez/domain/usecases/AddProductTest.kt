@@ -30,8 +30,7 @@ class AddProductTest : AutoCloseKoinTest() {
         single { AddProductUseCase(repository) }
     }
 
-    @Mock
-    private lateinit var repository: MainRepository
+    @Mock private lateinit var repository: MainRepository
     private val useCase: AddProductUseCase by inject()
     private val product  = Product(0, 0, "title", "description", "BUY", "PENDING", true, 1000, "", "", "",null)
     private val file = File("")
@@ -43,7 +42,7 @@ class AddProductTest : AutoCloseKoinTest() {
 
 
     @Test
-    fun `should login user successfully`() {
+    fun `should add product successfully`() {
         loadKoinModules(modules)
         given { repository.addProduct(product.title, product.description, product.price, file) } willReturn { Either.Right(product)}
 
@@ -63,7 +62,8 @@ class AddProductTest : AutoCloseKoinTest() {
     fun `should return error when there is a problem`() {
         loadKoinModules(modules)
 
-        given { repository.addProduct(product.title, product.description, product.price, file) } willReturn { Either.Left(Failure.ServerError()) }
+        given { repository.addProduct(product.title, product.description, product.price, file) }
+            .willReturn { Either.Left(Failure.ServerError()) }
 
         runBlocking { useCase.run(AddProductUseCase.Params(
             product.title,
