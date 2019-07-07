@@ -62,7 +62,7 @@ class RegistrationActivityTest {
     }
 
     @Test
-    fun registerButtonClick_showToast(){
+    fun registerButtonClick_showErrorToast(){
         val activity = rule.activity
         onView(withId(R.id.email)).perform(typeText("email@test.com"))
         closeSoftKeyboard()
