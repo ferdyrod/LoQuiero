@@ -37,12 +37,12 @@
         <ImageView
                 android:id="@+id/logo"
                 android:layout_width="0dp"
-                android:layout_height="0dp"
+                android:layout_height="250dp"
+                android:src="@drawable/logo_loquiero"
                 app:layout_constraintBottom_toTopOf="@id/emailLayout"
                 app:layout_constraintTop_toBottomOf="@id/baseToolbar"
                 app:layout_constraintStart_toEndOf="@id/start_guideline"
-                app:layout_constraintEnd_toStartOf="@id/end_guideline"
-                tools:src="@tools:sample/backgrounds/scenic"/>
+                app:layout_constraintEnd_toStartOf="@id/end_guideline"/>
 
         <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/emailLayout"
