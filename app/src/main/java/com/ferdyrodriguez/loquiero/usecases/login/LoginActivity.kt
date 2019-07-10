@@ -35,6 +35,7 @@ class LoginActivity : BaseActivity() {
         loginViewModel.emailError.observe(this, Observer(this::setEmailError))
         loginViewModel.passwordError.observe(this, Observer(this::setPasswordError))
 
+        loginViewModel.state.observe(this, Observer(this::renderDataState))
         loginViewModel.isLoginComplete.observe(this, Observer(this::handleNavigation))
         loginViewModel.failure.observe(this, Observer(this::handleFailure))
 

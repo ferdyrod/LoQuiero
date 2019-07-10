@@ -55,6 +55,7 @@ class UserProfileActivity : BaseActivity() {
         viewModel.openChooser.observe(this, Observer(::openChooser))
         viewModel.isProfileSaved.observe(this, Observer(::handleProfileSaved))
         viewModel.failure.observe(this, Observer(::handleFailure))
+        viewModel.state.observe(this, Observer(this::renderDataState))
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

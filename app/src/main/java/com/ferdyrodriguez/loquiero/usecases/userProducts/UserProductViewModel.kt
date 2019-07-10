@@ -8,6 +8,7 @@ import com.ferdyrodriguez.domain.usecases.GetProductsUseCase
 import com.ferdyrodriguez.loquiero.base.BaseViewModel
 import com.ferdyrodriguez.loquiero.models.ProductItem
 import com.ferdyrodriguez.loquiero.utils.Event
+import com.ferdyrodriguez.loquiero.utils.State
 
 class UserProductViewModel(private val useCase: GetProductsUseCase,
                            private val deleteUseCase: DeleteProductUseCase) : BaseViewModel() {
@@ -25,12 +26,14 @@ class UserProductViewModel(private val useCase: GetProductsUseCase,
         get() = _deletedSuccessfully
 
     fun getProducts() {
+        _state.value = State.LOADING
         useCase(GetProductsUseCase.Params(ofUser = true)) {
             it.either(::handleFailure, ::handleProducts)
         }
     }
 
     fun deleteProduct(productId: Int) {
+        _state.value = State.LOADING
         deleteUseCase(DeleteProductUseCase.Params(productId)) {
             it.either(::handleFailure, ::handleDeletion)
         }
@@ -41,10 +44,12 @@ class UserProductViewModel(private val useCase: GetProductsUseCase,
     }
 
     private fun handleProducts(products: List<Product>) {
+        _state.value = State.FINISHED
         _products.value = products.map { ProductItem(it.id, it.user_id, it.title, it.description, it.price, it.image) }
     }
 
     private fun handleDeletion(unit: Unit){
+        _state.value = State.FINISHED
         _deletedSuccessfully.value = Event(true)
     }
 }

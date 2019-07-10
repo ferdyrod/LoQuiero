@@ -44,6 +44,7 @@ class MainActivity : BaseActivity() {
         viewModel.navigateToAdd.observe(this, Observer(::navigateToAddProduct))
         viewModel.navigateToDetail.observe(this, Observer(::navigateToDetail))
         viewModel.products.observe(this, Observer(::setList))
+        viewModel.state.observe(this, Observer(this::renderDataState))
 
         binding.baseToolbar.profilePictureLayout.search_layout.visible()
         binding.baseToolbar.profilePicture.setOnClickListener {

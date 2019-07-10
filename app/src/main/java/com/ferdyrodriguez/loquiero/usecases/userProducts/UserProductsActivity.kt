@@ -8,6 +8,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import com.ferdyrodriguez.loquiero.R
+import com.ferdyrodriguez.loquiero.base.BaseActivity
 import com.ferdyrodriguez.loquiero.databinding.ActivityUserProductsBinding
 import com.ferdyrodriguez.loquiero.extensions.toast
 import com.ferdyrodriguez.loquiero.models.ProductItem
@@ -15,7 +16,7 @@ import com.ferdyrodriguez.loquiero.utils.Event
 import org.koin.android.ext.android.inject
 import org.koin.core.parameter.parametersOf
 
-class UserProductsActivity : AppCompatActivity() {
+class UserProductsActivity : BaseActivity() {
 
     private lateinit var binding: ActivityUserProductsBinding
 
@@ -42,6 +43,7 @@ class UserProductsActivity : AppCompatActivity() {
         viewModel.products.observe(this, Observer(::setList))
         viewModel.openMenu.observe(this, Observer(::openMenu))
         viewModel.deletedSuccessfully.observe(this, Observer(::deletedProduct))
+        viewModel.state.observe(this, Observer(this::renderDataState))
     }
 
     override fun onResume() {
