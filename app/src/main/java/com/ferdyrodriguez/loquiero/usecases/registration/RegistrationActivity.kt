@@ -36,6 +36,7 @@ class RegistrationActivity : BaseActivity() {
         viewModel.passwordError.observe(this, Observer(this::setPasswordError))
         viewModel.password2Error.observe(this, Observer(this::setPassword2Error))
 
+        viewModel.state.observe(this, Observer(this::renderDataState))
         viewModel.isUserRegistrationComplete.observe(this, Observer(this::handleNavigation))
         viewModel.failure.observe(this, Observer(this::handleFailure))
 

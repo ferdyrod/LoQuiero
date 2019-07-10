@@ -6,6 +6,7 @@ import com.ferdyrodriguez.domain.models.AuthUser
 import com.ferdyrodriguez.domain.usecases.LoginUseCase
 import com.ferdyrodriguez.loquiero.base.BaseViewModel
 import com.ferdyrodriguez.loquiero.extensions.isEmail
+import com.ferdyrodriguez.loquiero.utils.State
 
 
 class LoginViewModel(
@@ -35,12 +36,14 @@ class LoginViewModel(
     }
 
     fun loginUser() {
+        _state.value = State.LOADING
         useCase(LoginUseCase.Params(email.value!!, password.value!!)) {
             it.either(::handleFailure, ::handleLogin)
         }
     }
 
     private fun handleLogin(user: AuthUser) {
+        _state.value = State.FINISHED
         _isLoginComplete.value = true
     }
 

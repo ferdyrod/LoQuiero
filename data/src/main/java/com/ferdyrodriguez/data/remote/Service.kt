@@ -56,7 +56,7 @@ interface Service {
 
         private const val AUTH = "auth"
         private const val USER = "user"
-        private const val PUBLICATIONS = "publications"
+        private const val PUBLICATIONS = "products"
 
         private const val REGISTER_USER: String = "$USER/"
         private const val AUTH_USER: String = "$AUTH/"

@@ -8,6 +8,7 @@ import com.ferdyrodriguez.domain.models.UserProfile
 import com.ferdyrodriguez.domain.usecases.SaveUserProfileUseCase
 import com.ferdyrodriguez.loquiero.base.BaseViewModel
 import com.ferdyrodriguez.loquiero.utils.Event
+import com.ferdyrodriguez.loquiero.utils.State
 import java.io.File
 
 class UserProfileViewModel(private val useCase: SaveUserProfileUseCase,
@@ -50,6 +51,7 @@ class UserProfileViewModel(private val useCase: SaveUserProfileUseCase,
     }
 
     fun saveProfile() {
+        _state.value = State.LOADING
         useCase(SaveUserProfileUseCase.Params(firstName.value, lastName.value, cleanedPostalCode, phone.value, photo.value)) {
             it.either(::handleFailure, ::handleSavedProfile)
         }
@@ -61,6 +63,7 @@ class UserProfileViewModel(private val useCase: SaveUserProfileUseCase,
     }
 
     private fun handleSavedProfile(user: UserProfile?) {
+        _state.value = State.FINISHED
         _isProfileSaved.value = Event(true)
     }
 

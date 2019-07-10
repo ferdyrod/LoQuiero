@@ -10,6 +10,7 @@ import com.ferdyrodriguez.domain.usecases.GetProductsUseCase
 import com.ferdyrodriguez.loquiero.base.BaseViewModel
 import com.ferdyrodriguez.loquiero.models.ProductItem
 import com.ferdyrodriguez.loquiero.utils.Event
+import com.ferdyrodriguez.loquiero.utils.State
 
 class MainViewModel(private val useCase: GetProductsUseCase,
                     private val prefs: PreferenceHelper) : BaseViewModel() {
@@ -33,12 +34,14 @@ class MainViewModel(private val useCase: GetProductsUseCase,
     }
 
     fun getProducts() {
+        _state.value = State.LOADING
         useCase(GetProductsUseCase.Params()) {
             it.either(::handleFailure, ::handleProducts)
         }
     }
 
     fun handleProducts(products: List<Product>) {
+        _state.value = State.FINISHED
         _products.value = products.map { ProductItem(it.id, it.user_id, it.title, it.description, it.price, it.image) }
     }
 

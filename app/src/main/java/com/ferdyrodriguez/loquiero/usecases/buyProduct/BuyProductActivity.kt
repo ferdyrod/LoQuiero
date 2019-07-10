@@ -6,13 +6,14 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import com.ferdyrodriguez.loquiero.R
+import com.ferdyrodriguez.loquiero.base.BaseActivity
 import com.ferdyrodriguez.loquiero.databinding.ActivityBuyProductBinding
 import com.ferdyrodriguez.loquiero.extensions.toast
 import com.ferdyrodriguez.loquiero.utils.Constants
 import com.ferdyrodriguez.loquiero.utils.Event
 import org.koin.android.ext.android.inject
 
-class BuyProductActivity : AppCompatActivity() {
+class BuyProductActivity : BaseActivity() {
 
     private lateinit var binding: ActivityBuyProductBinding
 
@@ -38,6 +39,7 @@ class BuyProductActivity : AppCompatActivity() {
         viewModel.validateCard.observe(this, Observer(::validateCard))
         viewModel.productBought.observe(this, Observer(::handleNavigation))
 
+        viewModel.state.observe(this, Observer(this::renderDataState))
     }
 
     private fun validateCard(event: Event<Boolean>?) {

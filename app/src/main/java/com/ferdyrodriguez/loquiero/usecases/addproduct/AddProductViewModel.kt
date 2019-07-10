@@ -6,6 +6,7 @@ import com.ferdyrodriguez.domain.models.Product
 import com.ferdyrodriguez.domain.usecases.AddProductUseCase
 import com.ferdyrodriguez.loquiero.base.BaseViewModel
 import com.ferdyrodriguez.loquiero.utils.Event
+import com.ferdyrodriguez.loquiero.utils.State
 import org.koin.ext.isInt
 import java.io.File
 
@@ -39,10 +40,12 @@ class AddProductViewModel(private val useCase: AddProductUseCase) : BaseViewMode
     }
 
     fun addProduct() {
-        if (formattedPrice >= 0)
+        if (formattedPrice >= 0) {
+            _state.value = State.LOADING
             useCase(AddProductUseCase.Params(title.value!!, description.value, formattedPrice, photo.value!!)) {
                 it.either(::handleFailure, ::handleAddedProduct)
             }
+        }
     }
 
     fun addPhoto() {
@@ -50,6 +53,7 @@ class AddProductViewModel(private val useCase: AddProductUseCase) : BaseViewMode
     }
 
     private fun handleAddedProduct(product: Product) {
+        _state.value = State.FINISHED
         _isProductAdded.value = Event(true)
     }
 

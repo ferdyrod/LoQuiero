@@ -59,6 +59,7 @@ class AddProductActivity : BaseActivity() {
         viewModel.openChooser.observe(this, Observer(::openChooser))
         viewModel.isProductAdded.observe(this, Observer(::handleNavigation))
         viewModel.failure.observe(this, Observer(::handleFailure))
+        viewModel.state.observe(this, Observer(this::renderDataState))
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
