@@ -7,6 +7,7 @@ import com.ferdyrodriguez.domain.models.Product
 import com.ferdyrodriguez.domain.usecases.ChargeCreditCard
 import com.ferdyrodriguez.loquiero.base.BaseViewModel
 import com.ferdyrodriguez.loquiero.utils.Event
+import com.ferdyrodriguez.loquiero.utils.State
 import com.stripe.android.Stripe
 import com.stripe.android.TokenCallback
 import com.stripe.android.model.Card
@@ -28,6 +29,7 @@ class BuyProductViewModel(private val useCase: ChargeCreditCard,
     }
 
     fun createToken(productId: Int, cardToTokenize: Card) {
+        _state.value = State.LOADING
         stripe.createToken(cardToTokenize, object: TokenCallback{
             override fun onSuccess(result: Token) {
                 useCase(ChargeCreditCard.Params(productId, result.id)){
@@ -36,12 +38,13 @@ class BuyProductViewModel(private val useCase: ChargeCreditCard,
             }
 
             override fun onError(e: Exception) {
-                _failure.value = Failure.ServerError(e.message)
+                handleFailure(Failure.ServerError(e.message))
             }
         })
     }
 
     private fun handleProduct(product: Product){
+        _state.value = State.FINISHED
         _productBought.value = Event(true)
     }
 

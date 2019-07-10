@@ -51,7 +51,7 @@ class SearchActivity : BaseActivity() {
 
         viewModel.products.observe(this, Observer(::setlist))
         viewModel.navigateToDetail.observe(this, Observer(::navigateToDetail))
-
+        viewModel.state.observe(this, Observer(this::renderDataState))
 
     }
 

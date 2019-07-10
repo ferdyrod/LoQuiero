@@ -8,6 +8,7 @@ import com.ferdyrodriguez.domain.usecases.RegisterUserUseCase
 import com.ferdyrodriguez.loquiero.base.BaseViewModel
 import com.ferdyrodriguez.loquiero.extensions.isEmail
 import com.ferdyrodriguez.loquiero.utils.Constants
+import com.ferdyrodriguez.loquiero.utils.State
 
 
 class RegistrationViewModel(
@@ -45,12 +46,14 @@ class RegistrationViewModel(
     }
 
     fun registerUser() {
+        _state.value = State.LOADING
         useCase(RegisterUserUseCase.Params(email.value!!, password.value!!)) {
             it.either(::handleFailure, ::handleRegistration)
         }
     }
 
     private fun handleRegistration(user: RegisterUser) {
+        _state.value = State.FINISHED
         prefs.setPreference(Constants.USER_ID, user.id)
         prefs.setPreference(Constants.USER_EMAIL, user.email)
         _isUserRegistrationComplete.value = true

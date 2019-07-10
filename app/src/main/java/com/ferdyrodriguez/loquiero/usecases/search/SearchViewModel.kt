@@ -7,6 +7,7 @@ import com.ferdyrodriguez.domain.usecases.GetProductsUseCase
 import com.ferdyrodriguez.loquiero.base.BaseViewModel
 import com.ferdyrodriguez.loquiero.models.ProductItem
 import com.ferdyrodriguez.loquiero.utils.Event
+import com.ferdyrodriguez.loquiero.utils.State
 
 class SearchViewModel(private val usecase:GetProductsUseCase): BaseViewModel() {
 
@@ -20,12 +21,14 @@ class SearchViewModel(private val usecase:GetProductsUseCase): BaseViewModel() {
 
 
     fun getProducts(query: String) {
+        _state.value = State.LOADING
         usecase(GetProductsUseCase.Params(query)) {
             it.either(::handleFailure, ::handleProducts)
         }
     }
 
     fun handleProducts(products: List<Product>) {
+        _state.value = State.FINISHED
         _products.value = products.map { ProductItem(it.id, it.user_id, it.title, it.description, it.price, it.image) }
     }
 
